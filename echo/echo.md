@@ -5,10 +5,8 @@
 ### Double Quotes (`"`)
 
 - variables (`$variable`)
-- command substitutions (`` $(command) ``)
+- command substitutions (`` $(command) ``) or backticks
 - escape sequences (like `\n` for a newline or `\t` for a tab)
-- backticks
-- prevent the shell from interpreting other special characters, like the dollar sign (`$`), unless they are escaped with a backslash.
 
 ### Single Quotes (`'`)
 
