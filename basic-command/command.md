@@ -12,7 +12,7 @@ Command1 && Command2
 Command1 || Command2
 ```
 
-- If `command1` succeeds, `command2` won't executes
+- If `command1` succeeds, `command2` won't execute
 - If `command1` fails, `command2` executes
 
 ## shortcut
