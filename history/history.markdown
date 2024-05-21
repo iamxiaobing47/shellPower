@@ -2,8 +2,6 @@
 
 ## Introduction
 
-Bash retains the user's operation history, which defaults to saving the last 500 commands.
-
 When exiting the current Shell, Bash writes the user's operation history into the `~/.bash_history` file, which stores 500 operations by default.
 
 The environment variable `HISTFILE` always points to this file.
@@ -15,7 +13,7 @@ $ echo $HISTFILE
 
 ## The history Command
 
-The `history` command outputs the entire content of the `.bash_history` file, i.e., the operation history.
+The `history` command outputs the entire content of the `.bash_history` file
 
 If you want to search for a previously executed command, you can use the `grep` command to search the operation history.
 
@@ -23,7 +21,7 @@ If you want to search for a previously executed command, you can use the `grep` 
 $ history | grep /usr/bin
 ```
 
-The `-c` parameter of the `history` command can clear the operation history, i.e., empty the `.bash_history` file.
+The `-c` parameter of the `history` command can clear the operation history
 
 ```bash
 $ history -c
@@ -41,10 +39,6 @@ $ history
 1  2013-06-09 10:40:12   cat /etc/issue
 2  2013-06-09 10:40:12   clear
 ```
-
-In the above code, `%F` is equivalent to `%Y - %m - %d` (year-month-day), and `%T` is equivalent to `%H : %M : %S` (hour:minute:second).
-
-As long as the `HISTTIMEFORMAT` environment variable is set, the execution timestamp of the command will be saved in the `.bash_history` file. If it is not set, the timestamp will not be saved.
 
 ### HISTSIZE
 
@@ -70,8 +64,6 @@ export HISTIGNORE='pwd:ls:exit:cd'
 
 ### ! + Line Number
 
-Each record in the operation history has a line number. After knowing the line number of the command, you can execute the command in the `.bash_history` with `exclamation mark + line number`.
-
 If you want to execute the 8th command in the `.bash_history`, you can operate as follows.
 
 ```bash
@@ -89,5 +81,3 @@ The above shortcut commands (such as the `!!` command) are executed directly aft
 ```bash
 $ shopt -s histverify
 ```
-
-After turning on the `histverify` option, the command returned by the `!` shortcut key will first be output, and then executed after the user presses the Enter key.
