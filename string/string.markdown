@@ -1,0 +1,206 @@
+# String Operations
+
+## String Length
+
+The syntax for obtaining the length of a string is as follows.
+
+```bash
+${#varname}
+```
+
+The curly braces `{}` are required; otherwise, Bash will interpret `$#` as the number of script arguments and the variable name as text.
+
+```bash
+$ echo $#myvar
+0myvar
+```
+
+## Substring
+
+The syntax for extracting a substring from a string is as follows.
+
+```bash
+${varname:offset:length}
+```
+
+```bash
+TEST=123456
+echo ${TEST:4:2} #56
+```
+
+Note: The original string will not be changed.
+
+If `length` is omitted, the substring will be returned from the position `offset` to the end of the string.
+
+If `offset` is a negative number, it means counting from the end of the string. 
+
+**Note that a space must be present before the negative number to prevent confusion with the syntax `${variable:-word}` for setting a default value for a variable.** 
+
+At this time, `length` can also be specified, and `length` can be positive or negative (the negative value must not exceed the length of `offset`).
+
+```bash
+$ foo="This string is long."
+$ echo ${foo: -5}
+long.
+$ echo ${foo: -5:2}
+lo
+$ echo ${foo: -5:-2}
+lon
+```
+
+## Search and Replace
+
+- The matched part is removed, and the remaining part is returned
+- The original variable will not change.
+
+### **(1) String Head Pattern Matching.**
+
+```bash
+${variable#pattern}
+${variable##pattern}
+```
+
+The matching pattern `pattern` can use wildcards such as `*`, `?`, `[]`, etc.
+
+```bash
+$ myPath=/home/cam/book/long.file.name
+
+$ echo ${myPath#/*/}
+cam/book/long.file.name
+
+$ echo ${myPath##/*/}
+long.file.name
+```
+
+The following syntax can remove the directory part of the file path and only leave the file name.
+
+```bash
+$ path=/home/cam/book/long.file.name
+
+$ echo ${path##*/}
+long.file.name
+```
+
+If the match is not successful, the original string is returned.
+
+```bash
+$ phone="555-456-1414"
+$ echo ${phone#444}
+555-456-1414
+```
+
+If you want to replace the matched part at the head with other content, use the following syntax.
+
+```bash
+# The pattern must appear at the beginning of the string
+${variable/#pattern/string}
+
+# Example
+$ foo=JPG.JPG
+$ echo ${foo/#JPG/jpg}
+jpg.JPG
+```
+
+In the above example, the replaced `JPG` must appear at the beginning of the string, so `jpg.JPG` is returned.
+
+### **(2) String Tail Pattern Matching.**
+
+```bash
+${variable%pattern}
+${variable%%pattern}
+```
+
+```bash
+$ path=/home/cam/book/long.file.name
+
+$ echo ${path%.*}
+/home/cam/book/long.file
+
+$ echo ${path%%.*}
+/home/cam/book/long
+```
+
+The following syntax can remove the file name part of the path and only leave the directory part.
+
+```bash
+$ path=/home/cam/book/long.file.name
+
+$ echo ${path%/*}
+/home/cam/book
+```
+
+The following syntax can replace the file extension.
+
+```bash
+$ file=foo.png
+$ echo ${file%.png}.jpg
+foo.jpg
+```
+
+If you want to replace the matched part at the tail with other content, use the following syntax.
+
+```bash
+# The pattern must appear at the end of the string
+${variable/%pattern/string}
+
+# Example
+$ foo=JPG.JPG
+$ echo ${foo/%JPG/jpg}
+JPG.jpg
+```
+
+### **(3) Any Position Pattern Matching.**
+
+```bash
+${variable/pattern/string}
+${variable//pattern/string}
+```
+
+```bash
+$ path=/home/cam/foo/foo.name
+
+$ echo ${path/foo/bar}
+/home/cam/bar/foo.name
+
+$ echo ${path//foo/bar}
+/home/cam/bar/bar.name
+```
+
+The following example changes the delimiter from `:` to a newline.
+
+```bash
+$ echo -e ${PATH//:/'\n'}
+/usr/local/bin
+/usr/bin
+/bin
+...
+```
+
+The pattern part can use wildcards.
+
+```bash
+$ phone="555-456-1414"
+$ echo ${phone/5?4/-}
+55-56-1414
+```
+
+If the `string` part is omitted, it is equivalent to replacing the matched part with an empty string, i.e., deleting the matched part.
+
+```bash
+$ path=/home/cam/foo/foo.name
+
+$ echo ${path/.*/}
+/home/cam/foo/foo
+```
+
+## Change Case
+
+The following syntax can change the case of a variable.
+
+```bash
+# Convert to uppercase
+${varname^^}
+
+# Convert to lowercase
+${varname,,}
+```
