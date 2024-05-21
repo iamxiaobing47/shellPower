@@ -1,275 +1,217 @@
-# 变量
+# Variable
 
-## 简介
+## Introduction
 
-Bash 变量分成[**环境变量**]和[**自定义变量**]两类。
+Bash variables are divided into two categories: **environment variables** and **user-defined variables**.
 
-### 环境变量
+### Environment Variables
 
-环境变量通常是系统定义好的，也可以由用户从父 Shell 传入子 Shell。
+Environment variables are typically predefined by the system and can also be passed from the parent shell to the child shell by the user.
 
-`env`命令或`printenv`命令，可以显示所有环境变量。
+The `env` command or `printenv` command can display all environment variables.
 
 ```bash
 $ env
-# 或者
 $ printenv
 ```
 
-下面是一些常见的环境变量。
+Here are some common environment variables.
 
-- `BASHPID`：Bash 进程的进程 ID。
-- `BASHOPTS`：当前 Shell 的参数，可以用`shopt`命令修改。
-- `HOME`：用户的主目录。
-- `HOST`：当前主机的名称。
-- `LANG`：字符集以及语言编码，比如`zh_CN.UTF-8`。
-- `PATH`：由冒号分开的目录列表，当输入可执行程序名后，会搜索这个目录列表。
-- `PWD`：当前工作目录。
-- `SHELLOPTS`：启动当前 Shell 的`set`命令的参数，参见《set 命令》一章。
-- `UID`：当前用户的 ID 编号。
-- `USER`：当前用户的用户名。
+- `BASHPID`: The process ID of the Bash process.
+- `BASHOPTS`: The current shell options, which can be modified using the `shopt` command.
+- `HOME`: The user's home directory.
+- `HOST`: The name of the current host.
+- `LANG`: The character set and language encoding, such as `zh_CN.UTF-8`.
+- `PATH`: A colon-separated list of directories that will be searched when a command name is entered.
+- `PWD`: The current working directory.
+- `UID`: The user ID number of the current user.
+- `USER`: The username of the current user.
 
-注意，Bash 变量名区分大小写，`HOME`和`home`是两个不同的变量。
+Note that Bash variable names are case-sensitive, `HOME` and `home` are two different variables.
 
-查看单个环境变量的值，可以使用`printenv`命令或`echo`命令。
+To view the value of a single environment variable, you can use the `printenv` command or the `echo` command.
 
 ```bash
 $ printenv PATH
-# 或者
 $ echo $PATH
 ```
 
-注意，`printenv`命令后面的变量名，不用加前缀`$`。
+Note that the variable name following the `printenv` command does not need the prefix `$`
 
-### 自定义变量
+### Custom Variables
 
-自定义变量是用户在当前 Shell 里面自己定义的变量，仅在当前 Shell 可用。一旦退出当前 Shell，该变量就不存在了。
+Custom variables are variables defined by the user within the current shell and are only available in the current shell. Once the current shell is exited, the variable no longer exists.
 
-`set`命令可以显示所有变量（**_包括环境变量和自定义变量_**），以及所有的 Bash 函数。
+The `set` command can display all variables (**including both environment variables and custom variables**), as well as all Bash functions.
 
 ```bash
 $ set
 ```
 
-## 创建变量
+## Creating Variables
 
-用户创建变量的时候，变量名必须遵守下面的规则。
+The variable name must follow these rules:
 
-- 字母、数字和下划线字符组成。
-- 第一个字符必须是一个字母或一个下划线，不能是数字。
-- 不允许出现空格和标点符号。
+- Composed of letters, numbers, and underscore characters.
+- The first character must be a letter or an underscore and cannot be a number.
+- Spaces and punctuation are not allowed.
 
-注意，等号两边不能有空格。
-如果变量的值包含空格，则必须将值放在引号中。
+Note, there should be no spaces around the equals sign. If the variable's value contains spaces, it must be enclosed in quotes.
 
 ```bash
 myvar="hello world"
 ```
 
-Bash 没有数据类型的概念，所有的变量值都是字符串。
+Bash does not have the concept of data types; all variable values are strings.
 
-下面是一些自定义变量的例子。
-
-```bash
-a=z                     # 变量 a 赋值为字符串 z
-b="a string"            # 变量值包含空格，就必须放在引号里面
-c="a string and $b"     # 变量值可以引用其他变量的值
-d="\t\ta string\n"      # 变量值可以使用转义字符
-e=$(ls -l foo.txt)      # 变量值可以是命令的执行结果
-f=$((5 * 7))            # 变量值可以是数学运算的结果
-```
-
-变量可以重复赋值，后面的赋值会覆盖前面的赋值。
+Here are some examples of custom variables.
 
 ```bash
-$ foo=1
-$ foo=2
-$ echo $foo
+a=z                     
+b="a string"            
+c="a string and $b"     
+d="\t\ta string\n"      
+e=$(ls -l foo.txt)      
+f=$((5 * 7))   
 ```
 
-## 读取变量
+Variables can be reassigned, with later assignments overriding earlier ones.
 
-读取变量的时候，直接在变量名前加上`$`就可以了。
+## Reading Variables
 
 ```bash
 $ foo=bar
-$ echo $foo
-bar
+$ echo $foo #bar
 ```
 
-由于`$`在 Bash 中有特殊含义，把它当作美元符号使用时，一定要非常小心。如果要使用`$`的原义，需要在`$`前面放上反斜杠，进行转义。
-
-
-读取变量的时候，变量名也可以使用花括号`{}`包围，比如`$a`也可以写成`${a}`。这种写法可以用于变量名与其他字符连用的情况。
+When reading a variable, the variable name can also be enclosed in curly braces `{}`, for example, `$a` can also be written as `${a}`. This notation can be used when the variable name is used in conjunction with other characters.
 
 ```bash
 $ a=foo
-$ echo $a_file
 
+$ echo $a_file
 $ echo ${a}_file
 ```
 
-## 删除变量
+## Unsetting Variables
 
-`unset`命令用来删除一个变量。
+The `unset` command is used to delete a variable.
 
 ```bash
 unset NAME
 ```
 
-这个命令不是很有用。因为不存在的 Bash 变量一律等于空字符串，所以即使`unset`命令删除了变量，还是可以读取这个变量，值为空字符串。
+This command is not very useful. Since non-existent Bash variables are all equivalent to an **empty string**, even if the `unset` command deletes a variable, you can still read the variable, and its value will be an empty string.
 
-**所以，删除一个变量，也可以将这个变量设成空字符串。**
+**Therefore, to delete a variable, you can also set the variable to an empty string.**
 
-## 输出变量，export 命令
+## Outputting Variables, the export Command
 
-用户创建的变量仅可用于当前 Shell，子 Shell 默认读取不到父 Shell 定义的变量。为了把变量传递给子 Shell，需要使用`export`命令。这样输出的变量，对于子 Shell 来说就是环境变量。
+Variables created by the user are only usable in the current shell, and child shells do not, by default, read the variables defined by the parent shell. To pass a variable to a child shell, you need to use the `export` command. This makes the exported variable an environment variable for the child shell.
 
-`export`命令用来向子 Shell 输出变量。
+The `export` command is used to output variables to child shells.
 
 ```bash
 NAME=foo
 export NAME
-```
 
-上面命令输出了变量`NAME`。变量的赋值和输出也可以在一个步骤中完成。
-
-```bash
 export NAME=value
 ```
+**Note:** If a child shell modifies an inherited variable, it does not affect the parent shell.
 
-上面命令执行后，当前 Shell 及随后新建的子 Shell，都可以读取变量`$NAME`。
+## Special Variables
 
-子 Shell 如果修改继承的变量，不会影响父 Shell。
+Bash provides some special variables. The values of these variables are provided by the Shell, and users cannot assign values to them.
 
-```bash
-# 输出变量 $foo
-$ export foo=bar
+(1) `$?`
 
-# 新建子 Shell
-$ bash
-
-# 读取 $foo
-$ echo $foo
-bar
-
-# 修改继承的变量
-$ foo=baz
-
-# 退出子 Shell
-$ exit
-
-# 读取 $foo
-$ echo $foo
-bar
-```
-
-上面例子中，子 Shell 修改了继承的变量`$foo`，对父 Shell 没有影响。
-
-## 特殊变量
-
-Bash 提供一些特殊变量。这些变量的值由 Shell 提供，用户不能进行赋值。
-
-（1）`$?`
-
-`$?`为上一个命令的退出码，用来判断上一个命令是否执行成功。返回值是`0`，表示上一个命令执行成功；如果不是零，表示上一个命令执行失败。
+`$?` is the exit status of the last command, used to determine whether the last command was executed successfully. A return value of `0` indicates that the last command was executed successfully; if it is not zero, it indicates that the last command failed.
 
 ```bash
 $ ls doesnotexist
-ls: doesnotexist: No such file or directory
+ls: cannot access 'doesnotexist': No such file or directory
 
 $ echo $?
 1
 ```
 
-上面例子中，`ls`命令查看一个不存在的文件，导致报错。`$?`为1，表示上一个命令执行失败。
+In the example above, the `ls` command looks for a non-existent file, resulting in an error. `$?` is 1, indicating that the last command failed.
 
-（2）`$$`
+(2) `$$`
 
-`$$`为当前 Shell 的进程 ID。
+`$$` is the process ID of **_the current shell_**.
 
 ```bash
 $ echo $$
 10662
 ```
 
-这个特殊变量可以用来命名临时文件。
+This special variable can be used to name temporary files.
 
 ```bash
 LOGFILE=/tmp/output_log.$$
 ```
 
-（3）`$0`
+(3) `$0`
 
-`$0`为当前 Shell 的名称（在命令行直接执行时）或者脚本名（在脚本中执行时）。
+`$0` is the name of the current shell (when executed directly from the command line) or the script name (when executed within a script).
 
 ```bash
 $ echo $0
 bash
 ```
 
-上面例子中，`$0`返回当前运行的是 Bash。
+In the example above, `$0` returns that the current shell being run is Bash.
 
-（4）`$@`和`$#`
+(4) `$@` and `$#`
 
-`$#`表示脚本的参数数量，`$@`表示脚本的参数值，参见脚本一章。
+`$#` represents the number of script arguments, 
 
-## 变量的默认值
+`$@` represents the values of the script arguments.
 
-Bash 提供四个特殊语法，跟变量的默认值有关，目的是保证变量不为空。
+## Default Values for Variables
+
+Bash provides four special syntaxes related to the default values of variables, which are designed to ensure that variables are not empty.
 
 ```bash
 ${varname:-word}
 ```
 
-上面语法的含义是，如果变量`varname`存在且不为空，则返回它的值，否则返回`word`。它的目的是返回一个默认值，比如`${count:-0}`表示变量`count`不存在时返回`0`。
-
+- If the variable `varname` exists and is not empty, it returns its value; otherwise, it returns `word`. Its purpose is to return a default value. For example, `${count:-0}` means that if the variable `count` does not exist, it returns `0`.
 
 ```bash
 ${varname:=word}
 ```
 
-上面语法的含义是，如果变量`varname`存在且不为空，则返回它的值，否则将它设为`word`，并且返回`word`。它的目的是设置变量的默认值，比如`${count:=0}`表示变量`count`不存在时返回`0`，且将`count`设为`0`。
+- The above syntax means that if the variable `varname` exists and is not empty, it returns its value; otherwise, it sets it to `word` and returns `word`. Its purpose is to set the default value of a variable. For example, `${count:=0}` means that if the variable `count` does not exist, it returns `0` and sets `count` to `0`.
 
 ```bash
 ${varname:+word}
 ```
 
-上面语法的含义是，如果变量名存在且不为空，则返回`word`，否则返回空值。它的目的是测试变量是否存在，比如`${count:+1}`表示变量`count`存在时返回`1`（表示`true`），否则返回空值。
+- If the variable name exists and is not empty, it returns `word`; otherwise, it returns an empty value. Its purpose is to test whether the variable exists. For example, `${count:+1}` means that if the variable `count` exists, it returns `1` (indicating `true`), otherwise it returns an empty value.
 
 ```bash
 ${varname:?message}
 ```
 
-上面语法的含义是，如果变量`varname`存在且不为空，则返回它的值，否则打印出`varname: message`，并中断脚本的执行。如果省略了`message`，则输出默认的信息“parameter null or not set.”。它的目的是防止变量未定义，比如`${count:?"undefined!"}`表示变量`count`未定义时就中断执行，抛出错误，返回给定的报错信息`undefined!`。
+- If the variable `varname` exists and is not empty, it returns its value; otherwise, it prints `varname: message` and terminates the script execution. If `message` is omitted, the default message "parameter null or not set." is output. Its purpose is to prevent variables from being undefined, for example, `${count:?"undefined!"}` means that if the variable `count` is undefined, it will terminate the execution and throw an error, returning the given error message `undefined!`.
 
-上面四种语法如果用在脚本中，变量名的部分可以用数字`1`到`9`，表示脚本的参数。
+## readonly Command
 
-```bash
-filename=${1:?"filename missing."}
-```
-
-上面代码出现在脚本中，`1`表示脚本的第一个参数。如果该参数不存在，就退出脚本并报错
-
-## readonly 命令
-
-`readonly`命令等同于`declare -r`，用来声明只读变量，不能改变变量值，也不能`unset`变量。
+The `readonly` command is equivalent to `declare -r` and is used to declare read-only variables, which cannot change the variable value, nor can they `unset` variables.
 
 ```bash
 $ readonly foo=1
 $ foo=2
-bash: foo：只读变量
+bash: foo: read-only variable
 $ echo $?
 1
 ```
 
-上面例子中，更改只读变量`foo`会报错，命令执行失败。
+## let Command
 
-`readonly`命令有三个参数。
-
-## let 命令
-
-`let`命令声明变量时，可以直接执行算术表达式。
+The `let` command can declare variables and directly execute arithmetic expressions.
 
 ```bash
 $ let foo=1+2
@@ -277,15 +219,15 @@ $ echo $foo
 3
 ```
 
-上面例子中，`let`命令可以直接计算`1 + 2`。
+In the above example, the `let` command can directly calculate `1 + 2`.
 
-`let`命令的参数表达式如果包含空格，就需要使用引号。
+If the parameter expression of `let` command contains spaces, it needs to be enclosed in quotes.
 
 ```bash
 $ let "foo = 1 + 2"
 ```
 
-`let`可以同时对多个变量赋值，赋值表达式之间使用空格分隔。
+`let` can assign values to multiple variables at the same time, with assignment expressions separated by spaces.
 
 ```bash
 $ let "v1 = 1" "v2 = v1++"
@@ -293,4 +235,4 @@ $ echo $v1,$v2
 2,1
 ```
 
-上面例子中，`let`声明了两个变量`v1`和`v2`，其中`v2`等于`v1++`，表示先返回`v1`的值，然后`v1`自增。
+In the above example, `let` declares two variables `v1` and `v2`, where `v2` is equal to `v1++`, which means it first returns the value of `v1`, then `v1` is incremented.

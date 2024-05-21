@@ -18,6 +18,6 @@ Command1 || Command2
 ## shortcut
 
 - `Ctrl + L`：Clear the screen and move to the top of the page
+- `Ctrl + W`：Delete the word before the cursor position
 - `Ctrl + U`：Delete from the cursor position to the beginning of the line
 - `Ctrl + K`：Delete from the cursor position to the end of the line
-- `Ctrl + W`：Delete the word before the cursor position

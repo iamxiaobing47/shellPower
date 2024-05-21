@@ -67,7 +67,7 @@ In Unix and Unix-like systems, every directory contains two special hidden files
 ❗ Both `?` and `*` are filename extensions, and they will only expand if the files actually exist. If the files do not exist, they will be output as-is.
 
 ```bash
-echo c*.txt  # If no files matching 'c' followed by any characters and '.txt' exist, it will output 'c*.txt' literally.
+echo c*.txt
 ```
 
 The `*` character only matches files in the current directory and does not match files in subdirectories.
@@ -153,19 +153,16 @@ In the code above, `[!1-3]` means to exclude the numbers 1, 2, and 3.
 Brace epansion `{...}` indicates that the contents within the braces are expanded into all the values separated by commas. For example, `{1,2,3}` expands to `1 2 3`.
 
 ```bash
-$ echo {1,2,3}
-1 2 3
-
+$ echo {1,2,3}  #1 2 3
 ```
 
 ```bash
-$ echo d{a,e,i,u,o}g
-dag deg dig dug dog
+$ echo d{a,e,i,u,o}g  #dag deg dig dug dog
 ```
 
 ```bash
 $ echo Front-{A,B,C}-Back
-Front-A-Back Front-B-Back Front-C-Back
+#Front-A-Back Front-B-Back Front-C-Back
 ```
 
 📒 Note that brace expansion is not filename expansion. ***It expands into all given values regardless of whether corresponding files exist.***
@@ -209,17 +206,11 @@ aA1b aA2b aB3b aB4b
 
 Braces can also be used in conjunction with other patterns and are always expanded ***before other patterns.***
 
-```bash
-$ echo /bin/{cat,b*}
-/bin/cat /bin/b2sum /bin/base32 /bin/base64 ...
-```
-
 ***Braces can be used for multi-character patterns, which is not possible with bracket expansion (only single characters can be matched).***
 
 ```bash
-$ echo {cat,dog}
-cat dog
-
+$ echo /bin/{cat,b*}
+/bin/cat /bin/b2sum /bin/base32 /bin/base64 ...
 ```
 
 Since brace expansion `{...}` is not a filename expansion, it will always expand. This is very different from bracket expansion `[...]`, which will not expand if the matched files do not exist. This distinction should be noted.
@@ -236,20 +227,18 @@ $ echo {a,b}.txt
 a.txt b.txt
 ```
 
-In the example above, if a.txt and b.txt do not exist, then `[ab].txt` will become a regular filename, while `{a,b}.txt` will still expand as usual.
-
 ### {start..end} Expansion
 Brace expansion has a shorthand form {start..end}, which represents an expansion into a continuous sequence. For example, {a..z} can expand into the 26 lowercase letters of the English alphabet.
 
 ```bash
 $ echo {a..c}
-a b c
+#a b c
 
 $ echo d{a..d}g
-dag dbg dcg ddg
+#dag dbg dcg ddg
 
 $ echo {1..4}
-1 2 3 4
+#1 2 3 4
 
 $ echo Number_{1..5}
 Number_1 Number_2 Number_3 Number_4 Number_5
@@ -295,8 +284,6 @@ do
   echo $i
 done
 ```
-
-The example above will loop four times.
 
 If there are leading zeros in the integers, each expanded output item will have leading zeros.
 
