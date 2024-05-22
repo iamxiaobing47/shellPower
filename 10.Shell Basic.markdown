@@ -143,7 +143,7 @@ The above script outputs the value of the `$foo` variable.
 $ foo=1
 
 # Prints output 1
-$ source test.sh
+$ source ./test.sh
 1
 
 # Prints an empty string
@@ -165,7 +165,7 @@ The above script uses the `source` command to load an external library, and then
 - `source` has a shorthand form, and a dot (`.`) can be used to represent it.
 
 ```bash
-$ . .bashrc
+$ . ./.bashrc
 ```
 
 ## Alias, alias Command
