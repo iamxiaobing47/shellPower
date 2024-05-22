@@ -1,0 +1,38 @@
+# Bash Startup Environment
+
+## Session
+
+Every time a user utilizes the Shell, a session with the Shell is initiated.
+
+There are two types of sessions: login sessions and non-login sessions, which can also be referred to as login shells and non-login shells.
+
+### Login Session
+
+A login session is the original session that the system opens for a user after they log into the system, typically requiring the user to enter a username and password.
+
+A login session generally performs the initialization of the entire system environment. The initialization scripts that are started in sequence are as follows:
+
+- `/etc/profile`: The global configuration script for all users.
+- All `.sh` files inside the `/etc/profile.d` directory.
+- `~/.bash_profile`: The personal configuration script for the user. If this script exists, it is executed and no further scripts are executed afterward.
+- `~/.bash_login`: If the `~/.bash_profile` is not found, this script is attempted (initialization script for the C shell). If it exists, it is executed and no further scripts are executed afterward.
+- `~/.profile`: If neither `~/.bash_profile` nor `~/.bash_login` is found, this script is attempted (initialization script for the Bourne shell and Korn shell).
+
+To modify your personal login environment, it is usually written in `~/.bash_profile`.
+
+### Non-Login Session
+
+A non-login session is a session manually created by the user after they have entered the system, and during this time, environment initialization does not occur. For example, executing the `bash` command in the command line will create a new non-login session.
+
+The initialization scripts for a non-login session are executed in the following order:
+
+- `/etc/bash.bashrc`: Effective for all users.
+- `~/.bashrc`: Effective only for the current user.
+
+For users, `~/.bashrc` is usually the most important script. A non-login session will execute it by default, and a login session will generally execute it by calling it. **Every time a new Bash window is opened, it is equivalent to creating a new non-login session, so `~/.bashrc` is executed each time.** **Note that executing a script is equivalent to creating a new non-interactive Bash environment, but this situation will not call `~/.bashrc`.**
+
+### .bash_logout
+
+The `~/.bash_logout` script is executed each time a session is exited, typically used for cleanup tasks and logging, such as deleting temporary files and recording the time the user spent in the current session.
+
+If there are no commands to be executed upon exiting, this file can also be non-existent.
