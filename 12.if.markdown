@@ -205,7 +205,7 @@ if [ condition ] && [ condition ]; then
 fi
 ```
 
-# Case Structure
+## Case Structure
 
 ```bash
 case expression in
