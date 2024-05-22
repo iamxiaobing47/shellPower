@@ -1,0 +1,45 @@
+# Function
+
+## Introduction
+
+The difference between it and aliases (alias) is that aliases are only suitable for encapsulating simple single commands, while functions can encapsulate complex multi-line commands.
+
+```bash
+# First method
+fn() {
+  # codes
+}
+
+# Second method
+function fn() {
+  # codes
+}
+```
+
+## Parameter Variables
+
+- `$1` to `$9`: The first to ninth arguments of the function.
+- `$0`: The name of the script where the function is located.
+- `$#`: The total number of function arguments.
+- `$@`: All the arguments of the function, separated by spaces.
+- `$*`: All the arguments of the function, separated by the first character of the variable `$IFS` value, the default is a space, but it can be customized.
+
+## return Command
+
+The `return` command is used to return a value from a function. When the function executes this command, it stops executing and returns directly. 
+
+The function returns the return value to the caller. If the function is executed directly on the command line, the next command can obtain the return value with `$?`.
+
+```bash
+function func_return_value {
+  return 10
+}
+```
+
+It is also possible to use `return` without a parameter, just to return.
+
+## Global Variables and Local Variables, local Command
+
+**Variables directly declared inside a Bash function are global variables, and the entire script can access them.**
+
+Local variables can be declared inside a function using the `local` command.
