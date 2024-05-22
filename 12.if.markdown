@@ -1,0 +1,257 @@
+# Conditional Statements
+## if Structure
+
+```bash
+if commands; then
+  commands
+elif commands; then
+  commands...
+else
+  commands
+fi
+```
+
+## test Command
+
+These three forms are equivalent, but the **third form also supports regular expression matching**, which the first two do not.
+
+```bash
+# Form one
+test expression
+
+# Form two
+[ expression ]
+
+# Form three
+[[ expression ]]
+```
+- If the expression is true, the `test` command succeeds (returns `0`); 
+- If the expression is false, the `test` command fails (returns `1`)
+
+Note that for the second and third forms, there must be spaces between the `[` and `]` and the expression inside.
+
+### File Conditions
+
+The following expressions are used to check the status of files.
+
+- `[ -e file ]`: If `file` exists, it is `true`.
+- `[ -d file ]`: If `file` exists and is a directory, it is `true`.
+- `[ -f file ]`: If `file` exists and is a regular file, it is `true`.
+- `[ -s file ]`: If `file` exists and its size is greater than zero, it is `true`.
+- `[ -r file ]`: If `file` exists and is readable (the current user has read permissions), it is `true`.
+- `[ -w file ]`: If `file` exists and is writable (the current user has write permissions), it is `true`.
+- `[ -x file ]`: If `file` exists and is executable (the effective user has execute/search permissions), it is `true`.
+
+```bash
+#!/bin/bash
+
+FILE=~/.bashrc
+
+if [ -e "$FILE" ]; then
+  if [ -f "$FILE" ]; then
+    echo "$FILE is a regular file."
+  fi
+  if [ -d "$FILE" ]; then
+    echo "$FILE is a directory."
+  fi
+  if [ -r "$FILE" ]; then
+    echo "$FILE is readable."
+  fi
+  if [ -w "$FILE" ]; then
+    echo "$FILE is writable."
+  fi
+  if [ -x "$FILE" ]; then
+    echo "$FILE is executable/searchable."
+  fi
+else
+  echo "$FILE does not exist"
+  exit 1
+fi
+```
+
+### String Conditions
+
+The following expressions are used to check strings.
+
+- `[ string ]`: If `string` is not empty (length greater than 0), it is `true`.
+- `[ -n string ]`: If the string `string` has a length greater than zero, it is `true`.
+- `[ -z string ]`: If the string `string` has a length of zero, it is `true`.
+- `[ string1 = string2 ]`: If `string1` and `string2` are the same, it is `true`.
+- `[ string1 != string2 ]`: If `string1` and `string2` are not the same, it is `true`.
+
+```bash
+#!/bin/bash
+
+ANSWER=maybe
+
+if [ -z "$ANSWER" ]; then
+  echo "There is no answer." >&2
+  exit 1
+fi
+if [ "$ANSWER" = "yes" ]; then
+  echo "The answer is YES."
+elif [ "$ANSWER" = "no" ]; then
+  echo "The answer is NO."
+elif [ "$ANSWER" = "maybe" ]; then
+  echo "The answer is MAYBE."
+else
+  echo "The answer is UNKNOWN."
+fi
+```
+
+### Integer Conditions
+
+The following expressions are used to check integers.
+
+- `[ integer1 -eq integer2 ]`: If `integer1` is equal to `integer2`, it is `true`.
+- `[ integer1 -ne integer2 ]`: If `integer1` is not equal to `integer2`, it is `true`.
+- `[ integer1 -le integer2 ]`: If `integer1` is less than or equal to `integer2`, it is `true`.
+- `[ integer1 -lt integer2 ]`: If `integer1` is less than `integer2`, it is `true`.
+- `[ integer1 -ge integer2 ]`: If `integer1` is greater than or equal to `integer2`, it is `true`.
+- `[ integer1 -gt integer2 ]`: If `integer1` is greater than `integer2`, it is `true`.
+
+### Regular Expression Matching
+
+The `[[ expression ]]` form of condition supports regular expressions.
+
+```bash
+[[ string1 =~ regex ]]
+```
+
+```bash
+#!/bin/bash
+
+INT=-5
+
+if [[ "$INT" =~ ^-?[0-9]+$ ]]; then
+  echo "INT is an integer."
+  exit 0
+else
+  echo "INT is not an integer." >&2
+  exit 1
+fi
+```
+### Logical Operators
+
+- `AND` operation: symbol `&&`
+- `OR` operation: symbol `||`
+- `NOT` operation: symbol `!`
+
+```bash
+#!/bin/bash
+
+MIN_VAL=1
+MAX_VAL=100
+
+INT=50
+
+if [[ "$INT" =~ ^-?[0-9]+$ ]]; then
+  if [[ $INT -ge $MIN_VAL && $INT -le $MAX_VAL ]]; then
+    echo "$INT is within $MIN_VAL to $MAX_VAL."
+  else
+    echo "$INT is out of range."
+  fi
+else
+  echo "INT is not an integer." >&2
+  exit 1
+fi
+```
+
+Using the negation operator `!`
+
+```bash
+if !([ $INT -ge $MIN_VAL ] && [ $INT -le $MAX_VAL ]); then
+  echo "$INT is outside $MIN_VAL to $MAX_VAL."
+else
+  echo "$INT is in range."
+fi
+```
+
+### Arithmetic Conditions
+
+```bash
+if ((3 > 2)); then
+  echo "true"
+fi
+```
+
+Note that arithmetic conditions do not require the `test` command but use the `((...))` structure directly
+
+And the logic of true or false is totally different from the `test` condition:
+- 0 is false
+- 1 is true
+
+```bash
+$ if ((1)); then echo "It is true."; fi
+It is true.
+$ if ((0)); then echo "It is true."; else echo "it is false."; fi
+It is false.
+```
+
+- Arithmetic conditions `((...))` can also be used for variable assignment.
+
+```bash
+$ if (( foo = 5 ));then echo "foo is $foo"; fi
+foo is 5
+```
+
+### Logical Operations of Ordinary Commands
+
+The `if` and `&&` combined usage.
+
+```bash
+if [ condition ] && [ condition ]; then
+  command
+fi
+```
+
+# Case Structure
+
+```bash
+case expression in
+  pattern )
+    commands ;;
+  pattern )
+    commands ;;
+  ...
+esac
+```
+
+```bash
+#!/bin/bash
+
+echo -n "Enter a number between 1 and 3 (inclusive) > "
+read character
+case $character in
+  1 ) echo 1
+    ;;
+  2 ) echo 2
+    ;;
+  3 ) echo 3
+    ;;
+  * ) echo "Input does not meet the requirements"
+esac
+```
+
+The matching patterns in `case` can use various wildcards, here are some examples.
+
+- `a)`: Matches `a`
+- `a|b)`: Matches `a` or `b`.
+- `[[:alpha:]])`: Matches a single letter.
+- `???)`: Matches a three-character word.
+- `*.txt)`: Matches `.txt` at the end.
+- `*)`: Matches any input, used as the last pattern in the `case` structure.
+
+```bash
+#!/bin/bash
+
+echo -n "Enter a letter or number > "
+read character
+case $character in
+  [[:lower:]] | [[:upper:]] ) echo "Entered a letter $character"
+                              ;;
+  [0-9] )                     echo "Entered a number $character"
+                              ;;
+  * )                         echo "Input does not meet the requirements"
+esac
+```
