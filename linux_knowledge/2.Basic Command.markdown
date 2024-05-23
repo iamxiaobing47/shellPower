@@ -1,0 +1,380 @@
+# Basic Command
+
+## Basic
+
+```bash
+command [-options] variables
+```
+
+## `ls`
+
+1. **Basic Usage**:
+   - `ls`: List the contents of the current directory.
+   - `ls directory_name`: List the contents of the specified directory.
+
+2. **Show Hidden Files**:
+   - `ls -a`: Show all files, including hidden files starting with a dot (.).
+
+3. **Long Listing**:
+   - `ls -l`: Display files and directories in a long listing format, including permissions, owner, size, and last modification time.
+
+4. **Recursive Listing**:
+   - `ls -R`: Recursively list the contents of all subdirectories.
+
+5. **Sort by Modification Time**:
+   - `ls -lt`: Sort by modification time, with the most recently modified files appearing first.
+   - `ls -ltr`: Sort by modification time, but display in reverse order (older first).
+
+6. **Sort by Size**:
+   - `ls -lS`: Sort by file size.
+
+7. **Display File Size**:
+   - `ls -lh`: Display file sizes in a human-readable format.
+
+Example:
+
+```bash
+libingyudeMBP:Desktop xiaobing$ ls -lSh
+total 24
+-rw-r--r--@ 1 xiaobing  staff   1.4K May 22 22:46 count.txt
+drwxr-xr-x@ 9 xiaobing  staff   288B May 20 22:41 WORKSPACE
+-rwxr-xr-x@ 1 xiaobing  staff   207B May 22 21:50 1.sh
+-rw-r--r--@ 1 xiaobing  staff    63B May 22 22:06 1.txt
+```
+
+## `cd` `pwd`
+
+`cd` (change directory)
+`pwd` (print working directory)
+
+## `mkdir`
+
+1. Create a new directory named `newdir`:
+   ```
+   mkdir newdir
+   ```
+
+2. Create a new directory and set its permissions at the same time:
+   ```
+   mkdir -m 755 newdir
+   ```
+
+   If not specified, the default permissions for new files are usually 666 (readable and writable), and for new directories, they are usually 777 (fully readable, writable, and executable).
+
+3. Create a nested directory structure, and automatically create parent directories if they do not exist:
+   ```
+   mkdir -p dir/subdir
+   ```
+
+4. Create multiple directories:
+   ```
+   mkdir dir1 dir2 dir3
+   ```
+
+5. Create directories and display a message each time a directory is created:
+   ```
+   mkdir -v dir1 dir2
+   ```
+
+Creating directories requires permission, so it is best to operate within your HOME directory.
+
+## `touch`
+
+The `touch` command is used to update the timestamps of files. If the specified file does not exist, `touch` will create an empty file.
+
+## `cat`
+
+`cat` is short for "concatenate" and is used to view, create, and concatenate files.
+
+- `-n` or `-b`: Display line numbers for each line.
+
+1. View the contents of a file:
+   ```bash
+   cat file.txt
+   ```
+
+2. View the contents of multiple files at the same time:
+   ```bash
+   cat file1.txt file2.txt
+   ```
+
+3. Create a new file and write content into it:
+   ```bash
+   echo "Hello, World!" | cat > newfile.txt
+   ```
+
+4. Display line numbers of a file:
+   ```bash
+   cat -n file.txt
+   ```
+
+## `more`
+
+`more` is a pager program used to view the contents of a file page by page. It displays one page at a time, allowing the user to browse through the file page by page. In contrast, `cat` will display all content at once.
+
+```bash
+more filename
+```
+
+- `Space`: Display the next page.
+- `Enter`: Move down one line.
+- `q`: Exit `more`.
+- `h` or `?`: Display help information.
+
+1. View the contents of a file:
+   ```bash
+   more largefile.txt
+   ```
+
+2. Search for specific text within a file:
+   ```bash
+   more +/searchtext largefile.txt
+   ```
+
+Certainly! Here is the translation of the provided content into English:
+
+## `cp`
+
+```bash
+cp [options] source_file(s) or directory... destination_directory or file
+```
+
+- `-r` or `--recursive`: Recursively copy, used for copying directories and their contents.
+- `-i` or `--interactive`: Prompt the user for confirmation before overwriting files.
+- `-v` or `--verbose`: Verbose mode, display information during the copy process.
+
+1. Copy a single file:
+   ```bash
+   cp source.txt destination.txt
+   ```
+
+2. Copy an entire directory and its contents:
+   ```bash
+   cp -r source_dir destination_dir
+   ```
+
+3. Prompt for confirmation when copying:
+   ```bash
+   cp -i source.txt destination.txt
+   ```
+
+## `rm`
+The `rm` command is used to delete files or directories.
+
+```bash
+rm [options] files or directories...
+```
+
+- `-r` or `--recursive`: Recursively delete, used for deleting directories and their contents.
+- `-i` or `--interactive`: Prompt the user for confirmation before deleting files.
+- `-f` or `--force`: Force deletion without prompting for confirmation.
+
+Note: The `rm` command supports wildcards.
+
+```bash
+rm -ri *test*
+```
+
+1. Delete a single file:
+   ```bash
+   rm file.txt
+   ```
+
+2. Delete an entire directory and its contents:
+   ```bash
+   rm -r directory
+   ```
+
+3. Prompt for confirmation before deleting a file:
+   ```bash
+   rm -i file.txt
+   ```
+
+## `mv`
+
+```bash
+mv [options] source_file(s) or directory... destination_directory or new_file_name
+```
+
+- `-i` or `--interactive`: Prompt the user for confirmation before overwriting the target file.
+- `-v` or `--verbose`: Verbose mode, display information during the move process.
+
+1. Rename a file:
+   ```bash
+   mv oldname.txt newname.txt
+   ```
+
+2. Move a file to another directory:
+   ```bash
+   mv file.txt /path/to/destination
+   ```
+
+3. Move an entire directory to another location:
+   ```bash
+   mv directory /path/to/new_location
+   ```
+
+4. Prompt for confirmation during the move process:
+   ```bash
+   mv -i file.txt /path/to/destination
+   ```
+
+## `which`
+
+Linux commands are essentially binary executable programs, and the `which` command is used to find the path of system executables.
+
+```bash
+which command_name
+```
+
+1. Find the executable file path of the `ls` command:
+   ```bash
+   which ls
+   ```
+
+2. If `which` finds the command, it will output the full path of that command; if not found, it will output an error message.
+
+## `find`
+
+`find` is used to search for files and directories in the filesystem. You can search for files based on name, type, size, modification date, and more.
+
+```bash
+find [search_path] [search_criteria]
+```
+
+- `-name`: Search by file name, supports wildcards.
+- `-type`: Search by file type (e.g., `f` for files, `d` for directories).
+- `-size`: Search by file size (e.g., `+10M` for files larger than 10MB).
+- `-exec`: Execute a specific command on the search results.
+
+1. Search for files named `file.txt` in the current directory and its subdirectories:
+   ```bash
+   find . -name "file.txt"
+   ```
+
+2. Search for all directories in the current directory:
+   ```bash
+   find . -type d
+   ```
+
+3. Search for files larger than 10MB in the user's home directory:
+   ```bash
+   find ~ -type f -size +10M
+   ```
+
+4. Search for files modified in the past 7 days in the `/var/log` directory:
+   ```bash
+   find /var/log -mtime -7
+   ```
+
+5. Execute the `ls -l` command on each found file:
+   ```bash
+   find . -name "*.txt" -exec ls -l {} + | sort -r;
+   ```
+
+6. Exclude specific directories with `! -path`
+   ```bash
+   find . -name "[1-9][!.]*" -type f ! -path "./*/.git/*"
+   ```
+
+## `grep`
+
+The `grep` command is used to search for text patterns in files.
+
+```bash
+grep [options] pattern [files...]
+```
+
+- `-i`: Ignore case.
+- `-v`: Show non-matching lines.
+- `-r` or `--recursive`: Recursively search directories.
+- `-n`: Show line numbers of matching lines.
+
+1. Search for lines containing "pattern" in a file:
+   ```bash
+   grep "pattern" file.txt
+   ```
+
+2. Search ignoring case:
+   ```bash
+   grep -i "pattern" file.txt
+   ```
+
+3. Recursively search a directory:
+   ```bash
+   grep -r "pattern" directory
+   ```
+
+4. Show line numbers:
+   ```bash
+   grep -n "pattern" file.txt
+   ```
+
+## `wc`
+
+The `wc` command is used to count the number of lines, words, and bytes in a file.
+
+```bash
+wc [options] [file...]
+```
+
+- `-l`: Count only the number of lines.
+- `-w`: Count only the number of words.
+- `-c`: Count only the number of bytes.
+
+1. Count the number of lines, words, and bytes in a file:
+   ```bash
+   wc file.txt
+   ```
+
+2. Count only the number of lines:
+   ```bash
+   wc -l file.txt
+   ```
+
+3. Count only the number of words:
+   ```bash
+   wc -w file.txt
+   ```
+
+## Pipe Symbol `|`
+
+1. Use `grep` to search for text in a file and use `wc` to count the matching lines:
+   ```bash
+   grep "pattern" file.txt | wc -l
+   ```
+
+2. Combine multiple commands to perform complex tasks, for example, search for text in a file, count the matching lines, and then filter out certain lines:
+   ```bash
+   grep "pattern" file.txt | wc -l | grep -v "0"
+   ```
+
+## `tail`
+
+The `tail` command is used to display the last few lines of a file. By default, `tail` displays the last 10 lines of a file, but this number can be customized with options.
+
+```bash
+tail [options] file...
+```
+
+- `-f` or `--follow`: Follow the file, i.e., continuously output new content added to the file.
+- `-r` or `--reverse`: Output the file content in reverse, displaying from the end of the file towards the beginning.
+
+1. Display the last 10 lines of a file:
+   ```bash
+   tail filename.txt
+   ```
+
+2. Display the last 20 lines of a file:
+   ```bash
+   tail -20 filename.txt
+   ```
+
+3. View new content added to a file in real-time:
+   ```bash
+   tail -f filename.txt
+   ```
+
+## `vim`
+
+`/` Enters search mode
