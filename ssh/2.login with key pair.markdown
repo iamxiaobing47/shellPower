@@ -1,0 +1,40 @@
+## process
+
+SSH 密钥登录分为以下的步骤。
+
+- 预备步骤，客户端通过ssh-keygen生成自己的公钥和私钥。 
+- 第一步，手动将客户端的公钥放入远程服务器的指定位置。
+- 第二步，客户端向服务器发起 SSH 登录的请求。 
+- 第三步，服务器收到用户 SSH 登录的请求，发送一些随机数据给用户，要求用户证明自己的身份。 
+- 第四步，客户端收到服务器发来的数据，使用私钥对数据进行签名，然后再发还给服务器。 
+- 第五步，服务器收到客户端发来的加密签名后，使用对应的公钥解密，然后跟原始数据比较。如果一致，就允许用户登录。
+
+## ssh-keygen
+
+- `-t` : specify the algorithm
+- `-f` : specify the filename
+- `-N` : speficy the passphrase
+
+```bash
+ssh-keygen -t rsa -f test -N 123456
+```
+
+1. 执行ssh-keygen命令以后，会出现第一个问题，询问密钥保存的文件名，默认是~/.ssh/id_dsa文件，这个是私钥的文件名，对应的公钥文件~/.ssh/id_dsa.pub是自动生成的
+2. 询问是否要为私钥文件设定密码保护（passphrase）。这样的话，即使入侵者拿到私钥，还是需要破解密码s
+
+生成密钥以后，建议修改它们的权限，防止其他人读取
+```shell
+$ chmod 600 ~/.ssh/id_rsa
+$ chmod 600 ~/.ssh/id_rsa.pub
+```
+
+## upload public key
+OpenSSH 规定，用户公钥保存在服务器的~/.ssh/authorized_keys文件。你要以哪个用户的身份登录到服务器，密钥就必须保存在该用户主目录的~/.ssh/authorized_keys文件。只要把公钥添加到这个文件之中，就相当于公钥上传到服务器了。每个公钥占据一行。如果该文件不存在，可以手动创建
+
+
+## log
+/var/log/auth.log文件中找到 sshd 的日志
+
+```shell
+sudo tail -n 500 /var/log/auth.log | grep sshd
+```

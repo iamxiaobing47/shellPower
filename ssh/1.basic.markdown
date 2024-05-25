@@ -1,0 +1,87 @@
+# SSH
+
+- `SSH` means protocol 
+- `ssh` means secure shell software
+
+It is located at `/usr/local/bin/ssh`
+
+
+## Login to Server
+
+`hostname`: hostname or IP addresss
+
+The default port is `22`, you can use `-p` to specify the port `-p 8821`
+```shell
+ssh user@hostname 
+#OR
+ssh -l user hostname
+```
+
+## Login process
+
+如果是第一次连接某一台服务器，命令行会显示一段文字，表示不认识这台机器，提醒用户确认是否需要连接。
+```bash
+The authenticity of host 'foo.com (192.168.121.111)' can't be established.
+ECDSA key fingerprint is SHA256:Vybt22mVXuNuB5unE++yowF7lgA/9/2bLSiO3qmYWBY.
+Are you sure you want to continue connecting (yes/no)?
+```
+所谓“fingerprint”，指的是 SSH 服务器公钥的哈希值。每台 SSH 服务器都有唯一一对密钥，用于跟客户端通信，其中公钥的哈希值就可以用来识别服务器.
+
+ssh 会将本机连接过的所有服务器公钥的指纹，都储存在本机的`~/.ssh/known_hosts`中。每次连接服务器时，通过该文件判断是否为陌生主机（陌生公钥)
+
+## Server changes key pair
+
+服务器指纹可以防止有人恶意冒充远程主机。如果服务器的密钥发生变更（比如重装了 SSH 服务器），客户端再次连接时，就会发生公钥指纹不吻合的情况。这时，客户端就会中断连接，并显示一段警告信息。
+
+如果新的公钥确认可以信任，需要继续执行连接，你可以手工修改known_hosts文件，将公钥指纹删除。
+
+## handshake
+SH 连接的握手阶段，客户端必须跟服务端约定加密参数集（cipher suite）。
+
+加密参数集包含了若干不同的加密参数，它们之间使用下划线连接在一起，下面是一个例子。
+
+TLS_RSA_WITH_AES_128_CBC_SHA
+它的含义如下。
+
+TLS：加密通信协议
+RSA：密钥交换算法
+AES：加密算法
+128：加密算法的强度
+CBC：加密算法的模式
+SHA：数字签名的 Hash 函数
+下面是一个例子，客户端向服务器发出的握手信息。
+
+```bash
+Handshake protocol: ClientHello
+Version: TLS 1.2
+Random
+Client time: May 22, 2030 02:43:46 GMT
+Random bytes: b76b0e61829557eb4c611adfd2d36eb232dc1332fe29802e321ee871
+Session ID: (empty)
+Cipher Suites
+Suite: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256”
+Suite: TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+Suite: TLS_RSA_WITH_AES_128_GCM_SHA256
+Suite: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+Suite: TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+Suite: TLS_RSA_WITH_AES_128_CBC_SHA
+Suite: TLS_RSA_WITH_3DES_EDE_CBC_SHA
+Suite: TLS_RSA_WITH_RC4_128_SHA
+Compression methods
+Method: null
+Extensions
+Extension: server_name
+Hostname: www.feistyduck.com
+Extension: renegotiation_info
+Extension: elliptic_curves
+Named curve: secp256r1
+Named curve: secp384r1
+Extension: signature_algorithms
+Algorithm: sha1/rsa
+Algorithm: sha256/rsa
+Algorithm: sha1/ecdsa
+Algorithm: sha256/ecdsa”
+```
+
+上面的握手信息（ClientHello）之中，Cipher Suites字段就是客户端列出可选的加密参数集，服务器在其中选择一个自己支持的参数集。
+
