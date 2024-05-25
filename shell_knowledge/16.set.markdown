@@ -8,19 +8,13 @@ When Bash executes a script, it creates a sub-shell.
 $ bash script.sh
 ```
 
-In the above code, `script.sh` is executed within a sub-shell. This sub-shell is the execution environment of the script, and Bash defaults to various parameters for this environment.
-
-The `set` command is used to modify the runtime parameters of the sub-shell environment. There are more than a dozen parameters that can be customized, and the [official manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html)
-
-By the way, if you run `set` without any arguments in the command line, it will display all environment variables and shell functions.
+In the above code, `script.sh` is executed within a sub-shell. 
 
 ## set -u
 
 When executing a script, if an undefined variable is encountered, Bash will ignore it by default. In most cases, this is not the behavior developers want; when a variable does not exist, the script should report an error rather than silently continue execution.
 
 `set -u` is used to change this behavior. By adding it at the beginning of the script, an error will be reported and the execution will stop when an undefined variable is encountered.
-
-`-u` has another equivalent form `-o nounset`, and both are interchangeable.
 
 ## Bash Error Handling
 
@@ -36,25 +30,8 @@ command1
 set -e
 ```
 
-In the above code, `set +e` means to disable the `-e` option, and `set -e` means to re-enable the `-e` option.
-
-Another method is to use `command || true`, which ensures that the script will not terminate execution even if the command fails.
-
-```bash
-#!/bin/bash
-set -e
-
-foo || true
-echo bar
-```
-
-In the above code, `true` ensures that this line of the statement will always execute successfully, and the subsequent `echo bar` will be executed.
-
 ## set -o pipefail
-
-There is an exception to `set -e`, which is not applicable to pipeline commands.
-
-So-called pipeline commands are multiple sub-commands combined into a large command through the pipeline operator (`|`). Bash takes the return value of the last sub-command as the return value of the entire command. That is to say, as long as the last sub-command does not fail, the pipeline command will always execute successfully, and therefore the commands following it will still be executed, making `set -e` ineffective.
+As long as the last sub-command does not fail, the pipeline command will always execute successfully
 
 `set -o pipefail` is used to address this situation, where if any sub-command fails, the entire pipeline command fails, and the script will terminate.
 

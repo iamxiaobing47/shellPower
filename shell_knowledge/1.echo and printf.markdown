@@ -1,6 +1,6 @@
 # echo and printf
 
-## Options of echo
+## Options of `echo`
 
 1. `-n`: This option tells `echo` not to print a newline character at the end of the text
 
@@ -8,9 +8,10 @@
 
 3. `-E`: This is the opposite of `-e`; it disables the interpretation of backslash escapes
 
-The `printf` command is a shell utility that mimics the `printf()` function from the C programming library. Unlike `echo`, `printf` does not automatically append a newline character, so you can add it manually with `\n`.
+## `printf`
 
-The basic syntax of `printf` is:
+ Unlike `echo`, `printf` does not automatically append a newline character, so you can add it manually with `\n`.
+
 ```bash
 printf format-string [arguments...]
 ```
@@ -20,7 +21,6 @@ Here are some common format specifiers:
 - `%f`: Floating-point number
 - `%c`: Character
 
-Here is the provided bash script translated into English:
 ```bash
 #!/bin/bash
 
@@ -29,4 +29,13 @@ printf "%-10s %-8s %-4.2f\n" "Guo Jing" Male 66.1234
 printf "%-10s %-8s %-4.2f\n" "Yang Guo" Male 48.6543
 printf "%-10s %-8s %-4.2f\n" "Guo Fu" Female 47.9876
 ```
-- `%-10s`: Indicates that the output should be a left-aligned string that occupies a width of 10 characters. If the string length is less than 10 characters, the remaining space is filled with spaces.
+
+## Summary 
+
+```shell
+echo -ne "$(date)"
+```
+
+```shell
+printf "%s\n" "$(date)"
+```

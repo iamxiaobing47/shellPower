@@ -10,10 +10,6 @@ ${#varname}
 
 The curly braces `{}` are required; otherwise, Bash will interpret `$#` as the number of script arguments and the variable name as text.
 
-```bash
-$ echo $#myvar
-0myvar
-```
 
 ## Substring
 
@@ -23,12 +19,7 @@ The syntax for extracting a substring from a string is as follows.
 ${varname:offset:length}
 ```
 
-```bash
-TEST=123456
-echo ${TEST:4:2} #56
-```
-
-Note: The original string will not be changed.
+**Note:** The original string will not be changed.
 
 If `length` is omitted, the substring will be returned from the position `offset` to the end of the string.
 
@@ -101,7 +92,6 @@ $ echo ${foo/#JPG/jpg}
 jpg.JPG
 ```
 
-In the above example, the replaced `JPG` must appear at the beginning of the string, so `jpg.JPG` is returned.
 
 ### **(2) String Tail Pattern Matching.**
 

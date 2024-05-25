@@ -86,21 +86,6 @@ Activity: surfing
 
 In the above example, the array `activities` actually contains 5 members, but the `for...in` loop directly iterates over `${activities[@]}`, resulting in 7 results. To avoid this, it is common to put `${activities[@]}` in double quotes.
 
-```bash
-$ for act in "${activities[@]}"; \
-do \
-echo "Activity: $act"; \
-done
-
-Activity: swimming
-Activity: water skiing
-Activity: canoeing
-Activity: white-water rafting
-Activity: surfing
-```
-
-In the above example, `${activities[@]}` is enclosed in double quotes, and the iteration returns the correct results.
-
 - The most convenient way to copy an array is to write it like this.
 
 ```bash
@@ -130,16 +115,6 @@ To find out the length of an array (i.e., how many members it contains), you can
 ```bash
 ${#array[*]}
 ${#array[@]}
-```
-
-```bash
-$ a[100]=foo
-
-$ echo ${#a[*]}
-1
-
-$ echo ${#a[@]}
-1
 ```
 
 Note that if you use this syntax to read a specific array member, it will return the string length of that member. This must be done with care.

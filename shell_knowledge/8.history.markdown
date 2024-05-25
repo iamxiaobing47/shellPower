@@ -59,25 +59,3 @@ The environment variable `HISTIGNORE` can set which commands are not written int
 ```bash
 export HISTIGNORE='pwd:ls:exit:cd'
 ```
-
-## ! Command
-
-### ! + Line Number
-
-If you want to execute the 8th command in the `.bash_history`, you can operate as follows.
-
-```bash
-$ !8
-```
-
-### !!
-
-The `!!` command returns the last command.
-
-## histverify Option
-
-The above shortcut commands (such as the `!!` command) are executed directly after finding the matching command. If you want to add a confirmation step, first output what the command is, and then execute it after the user confirms, you can turn on the Shell's `histverify` option.
-
-```bash
-$ shopt -s histverify
-```

@@ -4,15 +4,9 @@
 
 ```bash
 command1 > file
+command1 >> file
 ```
 
-example:
-
-```bash
-ls > 1.txt
-```
-
-If you do not want the file contents to be overwritten, you can append to the end of the file using `>>`
 
 ## Input Redirection
 
@@ -29,7 +23,6 @@ wc -l < 1.txt > count.txt
 ```
 
 ## In-depth Explanation of Redirection
-In general, every Unix/Linux command opens three files when it runs:
 
 - Standard Input (stdin): The file descriptor for stdin is 0, and Unix programs default to reading data from stdin.
 - Standard Output (stdout): The file descriptor for stdout is 1, and Unix programs default to outputting data to stdout.
@@ -51,8 +44,6 @@ $ command >> file 2>&1
 ```
 
 ## /dev/null File
-
-If you want to execute a command and do not want to display the output on the screen, you can redirect the output to /dev/null:
 
 ```bash
 $ command > /dev/null

@@ -4,18 +4,12 @@ Bash has only one data type, string. No matter what data the user enters, Bash t
 
 ## **Escape**
 
-
-Certain characters have special meanings in Bash (such as `$`, `&`, `*`).
+Certain characters have special meanings in Bash (such as `$`, `&`, `*`). 
 
 To output these special characters as-is, you must place a backslash in front of them, turning them into regular characters. This is called "escaping."
 
 ```bash
 $ echo \$date #$date
-```
-
-The backslash itself is also a special character. To output a backslash literally, you need to escape it as well, by using two consecutive backslashes (`\\`).
-
-```bash
 $ echo \\ #\\
 ```
 
@@ -62,7 +56,7 @@ echo -e 'Newline: \n, Tab: \t'
 ```bash
 $ echo "*"  #*
 ```
-In the example above, the wildcard character `*` is a special character. When placed inside double quotes, it becomes an ordinary character and will be output as-is. This requires special attention, as it means that no filename expansion will occur inside double quotes.
+In the example above, the wildcard character `*` is a special character. When placed inside double quotes, it becomes an ordinary character and will be output as-is. This requires special attention, as it means that **no filename expansion will occur inside double quotes**
 
 However, there are three exceptions to this rule: the **dollar sign (`$`)**, **backticks (``)**, and **backslash (`\ `)**. These three characters retain their special meanings even when inside double quotes and will be automatically expanded by Bash.
 
@@ -91,7 +85,6 @@ Here Document is a method for inputting multi-line strings, formatted as follows
 text
 token
 ```
-The end delimiter is a single line with the name of the Here Document written at the beginning, and if it is not at the beginning, the end delimiter will not work
 
 Inside the Here Document, **variable substitution occurs, and backslash escaping is supported**, but wildcard expansion is not supported, and double quotes and single quotes lose their syntactic function and become ordinary characters.
 
@@ -110,37 +103,12 @@ $foo
 '$foo'
 ```
 
-**The essence of the Here Document is redirection, it redirects the string to output to a command, which is equivalent to including the `echo` command**.
-
-```bash
-$ command << token
-  string
-token
-
-# Equivalent to
-$ echo string | command
-```
-
 Therefore, Here strings are only suitable for commands that can accept standard input as arguments, and are invalid for other commands, such as the `echo` command, which cannot use Here Document as an argument.
 
 **In addition, Here Documents cannot be used as the value of a variable, they can only be used as command arguments**.
 
 ## **Here String**
 
-Here Document also has a variant called Here String, represented by three less-than signs (`<<<`).
-
 ```bash
 <<< string
 ```
-
-Its function is to pass the string through standard input to a command.
-
-Some commands accept parameters directly, and the results are different from accepting parameters through standard input. That's why this syntax is useful for passing strings through standard input to commands, such as the `cat` command which only accepts strings inputted through standard input.
-
-```bash
-$ md5sum <<< 'ddd'
-# Equivalent to
-$ echo 'ddd' | md5sum
-```
-
-In the above examples, the `md5sum` command can only accept parameters through standard input and cannot directly place strings behind the command, which would be interpreted as a filename, i.e., `ddd` in `md5sum ddd` would be interpreted as a filename. At this time, the Here String can be used to pass the string to the `md5sum` command.

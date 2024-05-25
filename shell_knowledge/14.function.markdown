@@ -36,7 +36,6 @@ function func_return_value {
 }
 ```
 
-It is also possible to use `return` without a parameter, just to return.
 
 ## Global Variables and Local Variables, local Command
 

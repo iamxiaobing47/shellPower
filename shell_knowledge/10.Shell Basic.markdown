@@ -20,19 +20,8 @@ $ bash ./script.sh
 Scripts need execution permissions
 
 ```bash
-# Grant execute permission to all users
-$ chmod +x script.sh
-
-# Grant read and execute permissions to all users
-$ chmod +rx script.sh
-# or
-$ chmod 755 script.sh
-
-# Grant read and execute permissions to the script owner only
-$ chmod u+rx script.sh
+chmod +x script.sh
 ```
-
-Scripts are usually given permissions of `755` (the owner has all permissions, and others have read and execute permissions) or `700` (only the owner can execute).
 
 In addition to execution permissions, when calling a script, you generally need to specify the script's path (e.g., `path/script.sh`). If you place the script in a directory specified by the `$PATH` environment variable, you don't need to specify the path. **Bash will automatically look in these directories for any executable files with the same name.**
 
@@ -60,8 +49,6 @@ $ script.sh word1 word2 word3
 - `$#`: The total number of arguments
 - `$@`: All arguments, **with spaces separating the arguments**
 
-Users can input any number of arguments, and by using a `for` loop, you can read each argument.
-
 ```bash
 #!/bin/bash
 
@@ -84,30 +71,10 @@ The original intention of the above commands is to output the contents of the fi
 At this point, you can use the configuration item argument terminator `--`, which tells Bash that the arguments following it that start with `-` and `--` are not options and can only be interpreted as actual arguments.
 
 ```bash
-$ cat -- -f
-$ cat -- --file
-```
-
-The above commands can correctly display the contents of the files `-f` and `--file` because they are placed after `--`, and the leading `-` and `--` are no longer interpreted as options.
-
-If you want to ensure that a variable is not interpreted as an option, you must place the argument terminator `--` in front of it.
-
-```bash
-$ ls -- $myPath
-```
-
-In the above example, `--` forces the variable `$myPath` to be interpreted only as an actual argument (i.e., a path name). If the variable is not a path name, an error will occur.
-
-```bash
-$ myPath="-l"
-$ ls -- $myPath
-ls: cannot access '-l': No such file or directory
-```
-
-Here's another practical example. If you want to search for `--hello` in a file, you also need to use the argument terminator `--`.
-
-```bash
-$ grep -- "--hello" example.txt
+cat -- -f
+cat -- --file
+ls -- $myPath
+grep -- "--hello" example.txt
 ```
 
 ## exit Command
@@ -130,26 +97,6 @@ $ source .bashrc
 
 The biggest feature of the `source` command is that it executes the script in the current Shell, unlike directly executing a script, which creates a new sub-shell. **Therefore, when executing a script with `source`, you don't need to `export` variables.**
 
-```bash
-#!/bin/bash
-# test.sh
-echo $foo
-```
-
-The above script outputs the value of the `$foo` variable.
-
-```bash
-# A new variable foo is created in the current Shell
-$ foo=1
-
-# Prints output 1
-$ source ./test.sh
-1
-
-# Prints an empty string
-$ bash test.sh
-```
-
 - Another use of the `source` command is to load external libraries within a script.
 
 ```bash
@@ -159,8 +106,6 @@ source ./lib.sh
 
 function_from_lib
 ```
-
-The above script uses the `source` command to load an external library, and then the script can use the functions defined in this external library.
 
 - `source` has a shorthand form, and a dot (`.`) can be used to represent it.
 
@@ -176,23 +121,15 @@ The `alias` command is used to specify an alias for a command, making it easier 
 alias NAME=DEFINITION
 ```
 
-`alias` can also be used to define a shorter alias for long commands. Here is an example of defining a `today` command through an alias.
-
 ```bash
 $ alias today='date +"%A, %B %-d, %Y"'
 $ today
 Monday, January 6, 2020
 ```
 
-Sometimes to prevent accidental file deletion, you can specify an alias for the `rm` command.
-
 ```bash
 $ alias rm='rm -i'
 ```
-
-The above command specifies that the `rm` command is `rm -i`, and each time a file is deleted, the user will be prompted for confirmation.
-
-`alias` defined aliases can also accept parameters, which are directly passed to the original command.
 
 ```bash
 $ alias echo='echo It says: '

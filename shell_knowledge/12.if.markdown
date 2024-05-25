@@ -13,8 +13,6 @@ fi
 
 ## test Command
 
-These three forms are equivalent, but the **third form also supports regular expression matching**, which the first two do not.
-
 ```bash
 # Form one
 test expression
@@ -131,6 +129,7 @@ else
   exit 1
 fi
 ```
+
 ### Logical Operators
 
 - `AND` operation: symbol `&&`
