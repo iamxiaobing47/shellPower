@@ -1,0 +1,7 @@
+```bash
+ln -s 被连接的文件 连接的目的地
+```
+
+```bash
+ln -s /Users/xiaobing/Desktop/4.txt /Users/xiaobing/Desktop/WORKSPACE/10.txt
+```

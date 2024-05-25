@@ -1,0 +1,6 @@
+# systemctl
+
+```bash
+systemstl start | stop | restart| status | enable | disable 服务名
+```
+

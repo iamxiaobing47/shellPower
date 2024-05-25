@@ -1,0 +1,59 @@
+sed命令是用来批量修改文本内容的. sed命令在处理时，会先读取一行，把当前处理的行存储在临时缓冲区中，处理完缓冲区中的内容后，打印到屏幕上。然后再读入下一行，执行下一个循环。不断的重复，直到文件末尾。
+
+```shell
+sed [选项] '指令' 文件
+```
+
+由于不加`-i`参数只会输出到控制台不会写入到文件中，所以默认加`-i`
+
+## 插入
+`1a` 在第1行后（after）插入
+`1i` 在第1行前插入
+
+```shell
+sed -i '' '1a\
+insert after' 1.txt
+```
+
+## 删除
+
+删除匹配特定模式的行，或删除指定行号范围内的行
+```shell
+sed -i '.txt' '1,2d' 3.txt
+```
+
+```shell
+sed '/error/d' file.txt
+```
+
+## 追加
+
+```shell
+sed -i '/test/a\'
+```
+
+## 替换
+
+```shell
+s/查找模式/替换文本/flags
+```
+flags 可以是：
+- g：全局替换，不只替换每行的第一个匹配项
+- i：不区分大小写的匹配
+
+```shell
+sed -i '.txt' 's/A/666/g' 3.txt
+```
+
+## 自动创建备份文件
+
+```shell
+sed -i.bak 's/coding3min/kitty/g' config.txt
+```
+
+## 与grep结合使用
+
+```shell
+sed -i 's/coding/kitty/g' `grep -rl coding *`
+```
+

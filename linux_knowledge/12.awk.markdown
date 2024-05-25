@@ -1,0 +1,47 @@
+# 基本语法
+
+```
+awk [可选的命令行选项] 'BEGIN{命令 } pattern{ 命令 } END{ 命令 }'  文件名
+```
+
+## 变量和内置函数
+
+- `$1`, `$2`, ...：代表输入行中的第1、第2个字段。
+- `NF`：代表当前行的字段总数。
+- `NR`：代表当前处理的是第几行（从1开始计数）。
+- `print`：打印文本
+
+## 模式匹配
+awk 可以进行模式匹配，例如：
+- `/pattern/`：匹配包含 pattern 的行。
+- `!/pattern/`：匹配不包含 pattern 的行。
+
+```shell
+#打印出 data.txt 文件中从包含 "John" 的行到包含 "Jane" 的行之间的所有行
+awk '/John/,/Jane/ { print }' data.txt
+```
+
+```shell
+awk 'match($2, /^[0-9]+$/) { print $2 }' 3.txt
+```
+
+```bash
+awk '{print}' file1.txt file2.txt
+```
+
+```shell
+$ echo '192.168.1.1' | awk -F "." '{print $2}'
+168
+```
+
+```shell
+tom 60 60 60
+kitty 90 95 87
+jack 72 84 99
+$ awk '$2>=90{print $0}' score.txt
+kitty 90 95 87
+```
+
+```shell
+awk 'BEGIN{print "START"} {if($1==0)print 1;else print "no"}END{print "END"}' 4.txt 
+```

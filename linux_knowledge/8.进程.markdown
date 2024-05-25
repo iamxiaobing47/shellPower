@@ -1,0 +1,10 @@
+```bash
+ps -ef ｜ grep -i "sql"
+```
+
+-e 显示全部进程
+-f 以格式化形式展现
+
+```bash
+kill -9 PID
+```

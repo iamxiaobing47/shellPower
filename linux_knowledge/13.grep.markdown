@@ -1,0 +1,45 @@
+## `grep`
+
+The `grep` command is used to search for text patterns in files.
+
+```bash
+grep [options] pattern [files...]
+```
+
+- `-i`: Ignore case.
+- `-v`: Show non-matching lines.
+- `-r`: Recursively search directories.
+- `-n`: Show line numbers
+- `-E`: RegEx
+- `-l`: Only output filename
+- `-A n`: Show `n` lines after the matched line
+- `-B n`: Show `n` lines before the matched line
+
+```bash
+grep -rl love *
+```
+
+```bash
+grep -inr "It doens't" *
+```
+
+```shell
+grep -in "Error" log.txt -B 2 -A 2
+```
+
+```bash
+ps -ef | grep -i "wei"
+```
+
+```bash
+grep -E "love|change" file.txt
+```
+
+```bash
+grep -E '.*' 1.txt
+```
+
+```shell
+grep -v '^$' filename
+awk 'NF' 1.txt 
+```
