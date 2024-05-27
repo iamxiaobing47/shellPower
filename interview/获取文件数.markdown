@@ -1,0 +1,15 @@
+查找当前目录下的文件个数，和每个文件的行数
+
+<hr>
+
+```shell
+find . -type f -name "*" | wc -l
+
+find . -type f -name "*" | xargs wc -l 
+```
+
+xargs 将标准输入数据转换成命令行参数
+
+```shell
+find . -type f | xargs rm
+```

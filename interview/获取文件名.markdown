@@ -1,0 +1,11 @@
+找到所有含有cat的文件名
+
+./WORKSPACE/untitled/pom.xml
+./WORKSPACE/untitled/.idea/workspace.xml
+./1.txt
+
+<hr>
+
+```shell
+grep -rl "cat" . | xargs -I {} basename {}
+```

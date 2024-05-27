@@ -1,0 +1,40 @@
+**输出到文件**：
+   ```bash
+   sort filename > sorted_filename
+   ```
+
+**数字排序**：
+
+   默认情况下，`sort`命令按照字典顺序排序。如果你需要按照数字排序，可以使用`-n`选项：
+   ```bash
+   sort -n filename
+   ```
+
+**逆序排序**：
+   使用`-r`选项可以进行逆序排序：
+   ```bash
+   sort -r filename
+   ```
+
+**忽略前导空白**：
+   ```bash
+   sort -b filename
+   ```
+
+**排序特定字段**：
+   ```bash
+   sort -k 2 filename
+   ```
+   这将按照每行的第二个字段进行排序。
+
+**固定长度的字段**：
+   使用`-t`选项可以指定字段分隔符：
+   ```bash
+   sort -t ':' -k 2 filename
+   ```
+
+**忽略大小写**：
+   使用`-f`选项可以进行不区分大小写的排序：
+   ```bash
+   sort -f filename
+   ```
