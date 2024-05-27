@@ -1,23 +1,23 @@
-sed命令是用来批量修改文本内容的. sed命令在处理时，会先读取一行，把当前处理的行存储在临时缓冲区中，处理完缓冲区中的内容后，打印到屏幕上。然后再读入下一行，执行下一个循环。不断的重复，直到文件末尾。
+The `sed` command is used for batch modification of text content. When processing, `sed` reads a line, stores the currently processed line in a temporary buffer, and after processing the content in the buffer, it prints it to the screen. Then it reads the next line and performs the next loop. This process repeats continuously until the end of the file.
 
 ```shell
-sed [选项] '指令' 文件
+sed [options] 'command' file
 ```
 
-由于不加`-i`参数只会输出到控制台不会写入到文件中，所以默认加`-i`
+Since running without the `-i` option will only output to the console and not write to the file, `-i` is added by default.
 
-## 插入
-`1a` 在第1行后（after）插入
-`1i` 在第1行前插入
+## Insertion
+`1a` Inserts after the 1st line
+`1i` Inserts before the 1st line
 
 ```shell
 sed -i '' '1a\
 insert after' 1.txt
 ```
 
-## 删除
+## Deletion
 
-删除匹配特定模式的行，或删除指定行号范围内的行
+Deletes lines that match a specific pattern or deletes lines within a specified line number range
 ```shell
 sed -i '.txt' '1,2d' 3.txt
 ```
@@ -26,34 +26,33 @@ sed -i '.txt' '1,2d' 3.txt
 sed '/error/d' file.txt
 ```
 
-## 追加
+## Append
 
 ```shell
 sed -i '/test/a\'
 ```
 
-## 替换
+## Replacement
 
 ```shell
-s/查找模式/替换文本/flags
+s/search_pattern/replacement_text/flags
 ```
-flags 可以是：
-- g：全局替换，不只替换每行的第一个匹配项
-- i：不区分大小写的匹配
+Flags can be:
+- `g`: Global replacement, not only replacing the first match in each line
+- `i`: Case-insensitive matching
 
 ```shell
 sed -i '.txt' 's/A/666/g' 3.txt
 ```
 
-## 自动创建备份文件
+## Automatic Backup File Creation
 
 ```shell
 sed -i.bak 's/coding3min/kitty/g' config.txt
 ```
 
-## 与grep结合使用
+## Combined with grep
 
 ```shell
 sed -i 's/coding/kitty/g' `grep -rl coding *`
 ```
-

@@ -1,0 +1,11 @@
+将字符串替换为大写?
+
+<hr>
+
+```shell
+echo "hello world" | awk '{print toupper($0)}'
+```
+
+```shell
+echo "hello world" | tr '[:lower:]' '[:upper:]'
+```

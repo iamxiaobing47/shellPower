@@ -1,0 +1,11 @@
+如何将整数 a 添加到 b 并分配给 c ？
+
+<hr>
+
+```shell
+let a=1
+let b=2
+let c=a+b
+
+echo $c
+```

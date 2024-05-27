@@ -1,0 +1,16 @@
+生成4个随机字符或数字
+
+<hr>
+
+```shell
+openssl rand -base64 4 | tr -dc 'a-zA-Z0-9' | head -c 4
+```
+
+`openssl rand -base64 4`：此命令生成4个字节的随机数据，并将其编码为Base64格式。Base64编码将**每3个字节的二进制数据转换为4个字符的Base64字符串**。因此，如果你输入4个字节，你将得到5或6个Base64字符
+
+```shell
+head -20 /dev/urandom | cksum | cut -c 1-4
+```
+
+cksum 读取文件内容，生成唯一的整型数据，只有文件内容没变，生成结果就不会变化，一般校验文件是否篡改
+

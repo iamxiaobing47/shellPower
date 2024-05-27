@@ -1,52 +1,50 @@
-# 压缩和解压
+# Compression and Decompression
 
 zip, tar, gzip
 - `.zip`
 - `.tar`
 - `.gz`
 
-
 ## tar
 
-### 基本选项
-- `-c`：创建一个新的归档文件。
-- `-x`：从归档文件中提取文件。
-- `-v`：在处理归档文件时显示详细（verbose）信息。
-- `-f`：指定归档文件的名称（后面跟着归档文件名）。
-- `-z`：通过 `gzip` 压缩或解压缩 `.tar.gz` 或 `.tgz` 文件。
-- `-p`：保留原文件的权限。
+### Basic Options
+- `-c`: Create a new archive file.
+- `-x`: Extract files from an archive.
+- `-v`: Display verbose information when processing the archive.
+- `-f`: Specify the name of the archive file (followed by the archive filename).
+- `-z`: Compress or decompress `.tar.gz` or `.tgz` files through `gzip`.
 
-### 创建归档文件
-- 创建一个名为 `archive_name.tar` 的归档文件，包含 `file1` 和 `file2`：
+### Creating Archive Files
+- Create an archive named `archive_name.tar`, including `file1` and `file2`:
   ```bash
   tar -cvf archive_name.tar file1 file2
   ```
 
-- 创建一个包含特定目录的归档文件：
+- Create an archive file that includes a specific directory:
   ```bash
   tar -cvf archive_name.tar /path/to/directory
   ```
 
-### 解压归档文件
-- 解压 `archive_name.tar` 到当前目录：
+### Extracting Archive Files
+- Extract `archive_name.tar` to the current directory:
   ```bash
   tar -xvf archive_name.tar
   ```
 
-- 解压到指定目录：
+- Extract to a specified directory:
   ```bash
   tar -xvf archive_name.tar -C /path/to/directory
   ```
 
-### 压缩归档文件
-- 创建一个压缩的归档文件 `archive_name.tar.gz`：
+### Compressing Archive Files
+- Create a compressed archive file `archive_name.tar.gz`:
   ```bash
   tar -czvf archive_name.tar.gz /path/to/directory
   ```
 
-### 查看归档文件内容 
+### Viewing Archive File Contents
 
-- 列出压缩归档文件 `archive_name.tar.gz` 的内容：
+- List the contents of the compressed archive `archive_name.tar.gz`:
   ```bash
   tar -tzvf archive_name.tar.gz
   ```
@@ -56,10 +54,10 @@ zip, tar, gzip
 ```bash
 zip -r archive_name.zip directory_or_file_to_compress
 ```
-    
-- `-r` 选项表示递归地包含目录，这对于压缩包含多个子目录的目录结构非常有用。
 
-### 自动解压到指定目录
+- The `-r` option indicates recursive inclusion of directories
+
+### Automatically Extract to a Specified Directory
 
 ```bash
 unzip example.zip -d /path/to/directory

@@ -1,44 +1,46 @@
-# Basic 
+## Components of Linux
 
-## Linux的组成
+Components of Linux include:
+- Linux Kernel
+- System-level applications
 
-Linux的组成：
-- Linux系统内核
-- 系统级应用程序
+The kernel is the core for scheduling the CPU, memory, file system, network communication, and I/O. 
 
-系统内核是调度CPU，调度内存，调度文件系统，网络通讯和IO的核心。内核+系统级程序的封装=Linux发行版（redhat, CentOS, Ubuntu)
+The kernel combined + system-level programs = a Linux distribution (such as Red Hat, CentOS, Ubuntu).
 
-## Linux的启动过程
+## Linux Boot Process
 
-1. 内核的引导
-2. 运行init
-3. 系统初始化
-4. 建立终端
-5. 用户登陆系统
+1. Kernel initialization
+2. Execution of init
+3. System initialization
+4. Establishing terminals
+5. User login to the system
 
-## Linux的目录结构
+## Linux Directory Structure
 
-`/bin`：
-bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令
+`/bin`:
+bin stands for Binaries, which refers to the directory that holds the most frequently used commands.
 
-`/boot`：
-这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件
+`/boot`:
+This directory contains the core files used when booting Linux, including some symbolic links and image files.
 
-`/etc`：
-etc 用来存放所有的系统管理所需要的配置文件和子目录
+`/etc`:
+etc is used to store all the configuration files and subdirectories required for system administration.
 
-`/home`：
+`/home`:
+This directory is typically where user-specific data and configuration files are stored.
 
-`/lib`：
-lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库
+`/lib`:
+lib stands for Library, and this directory contains the most basic dynamic link libraries needed by the system.
 
-`/opt`：
-opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。
+`/opt`:
+opt stands for optional, and this is the directory where additional software installed on the host is placed
 
-`/tmp`：
+`/tmp`:
+This directory is used for temporary files.
 
-`/usr`：
-usr 是 unix shared resources(共享资源) 的缩写，用户的很多应用程序和文件都放在这个目录下，类似于 windows 下的 program files 目录
+`/usr`:
+usr stands for unix shared resources, and this directory contains many user applications and files, similar to the "Program Files" directory in Windows.
 
-`/var`：
-习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。
+`/var`:
+It is customary to place directories that are frequently modified under this directory, including various log files.

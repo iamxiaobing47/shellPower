@@ -1,7 +1,6 @@
-xargs是给命令传递参数的一个过滤器. args 可以将管道或标准输入（stdin）数据转换成命令行参数. 之所以能用到这个命令，关键是由于很多命令不支持|管道来传递参数
+xargs is a filter for passing arguments to commands. It can convert data **from a pipe or standard input (stdin) into command-line arguments**. The key reason for using this command is that many commands do not support passing arguments through a pipe.
 
-
-1. 复制所有图片文件到 /data/images 目录下：
+1. Copy all image files to the `/data/images` directory:
 
 ```shell
 ls *.jpg | xargs -I {} cp {} /data/images

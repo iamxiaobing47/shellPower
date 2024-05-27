@@ -65,3 +65,7 @@ tail [options] file...
    ```bash
    tail -f filename.txt
    ```
+
+```shell
+head -1 
+```

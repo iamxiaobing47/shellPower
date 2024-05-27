@@ -1,0 +1,18 @@
+如何从字符串中删除所有空格？
+
+<hr>
+
+```shell
+str="这是一个测试字符串"
+str=$(echo "$str" | tr -d ' ')
+```
+
+```shell
+str="这是一个测试字符串"
+str=$(echo "$str" | sed 's/ //g')
+```
+
+```shell
+str="这是一个  测试字符 串"
+str="${str// /}"
+```

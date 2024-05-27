@@ -1,0 +1,32 @@
+如何检查字符串是否以“abc”字母开头？
+
+<hr>
+
+```shell
+str="abc123"
+if [[ "$str" == abc* ]]; then
+    echo "字符串以 'abc' 开头"
+else
+    echo "字符串不以 'abc' 开头"
+fi
+```
+
+```shell
+str="abc123"
+case "$str" in
+    abc*) echo "字符串以 'abc' 开头";;
+    *) echo "字符串不以 'abc' 开头";;
+esac
+```
+
+
+```shell
+str="abc123"
+if echo "$str" | grep -q '^abc'; then
+    echo "字符串以 'abc' 开头"
+else
+    echo "字符串不以 'abc' 开头"
+fi
+```
+
+`-q` 选项使 grep 在找到匹配项时静默运行（不输出）。

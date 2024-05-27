@@ -1,108 +1,66 @@
 # wget
-`wget` 是一个非交互式的命令行工具，用于从网络上下载文件
+`wget` is a non-interactive command-line tool used for downloading files from the network.
 
-**主要特点**：
-- 简单易用，适合下载单个文件。
-- 可以递归下载整个网站（使用 `-mirror` 或 `-r` 选项）。
-- 支持断点续传，如果下载被意外中断，可以继续下载而不需要重新开始。
+**Main Features**:
+- Can recursively download entire websites (using the `-mirror` or `-r` option).
+- Supports resuming downloads, allowing you to continue downloading from where you left off if the download is interrupted unexpectedly.
 
-**常用用法**：
-- 下载单个文件：
+**Common Usage**:
+- Download a single file:
   ```bash
   wget http://example.com/file.zip
   ```
-- 递归下载整个网站：
+- Recursively download an entire website:
   ```bash
   wget -r http://example.com
   ```
-- 从列表中下载文件：
+- Download files from a list:
   ```bash
   wget -i filelist.txt
   ```
 
 ## curl
-`curl` 是一个更强大的命令行工具，用于传输数据。它支持更多的协议和功能，适合进行更复杂的网络操作。
+`curl` is a more powerful command-line tool for data transfer. 
 
-**主要特点**：
-- 支持广泛的协议，包括 HTTP、HTTPS、FTP、LDAP、DICT、TELNET 等。
-- 可以发送数据（如 POST 请求）到服务器。
-- 支持用户认证、cookies、代理、SSL 等。
-- 可以与服务器进行交互，如发送 JSON 或 XML 数据。
-- 可以用于测试和调试网络服务。
+**Main Features**:
+- Supports a wide array of protocols, including HTTP, HTTPS, FTP, LDAP, DICT, TELNET, etc.
+- Can send data to servers (such as POST requests).
+- Supports user authentication, cookies, proxies, SSL, etc.
+- Can interact with servers, such as sending JSON or XML data.
+- Can be used for testing and debugging network services.
 
 ```bash
-curl [选项] [URL]
+curl [options] [URL]
 ```
 
-### 常用选项
+### Common Options
 
-- `-X`：指定请求的类型（如 GET、POST、PUT 等）。
-- `-H`：添加一个自定义的 HTTP 头。
-- `-u`：提供用户认证信息。
-- `-d`：发送 POST 数据。
-- `-o`：将输出写入文件。
-- `-O`：将远程文件的内容下载到本地，并且保持原名。
-- `-I`：只获取 HTTP 头部信息。
-- `-L`：跟随重定向。
-- `-s`：静默模式，不显示进度和错误信息。
-- `-v`：详细模式，输出详细的调试信息。
-- `-w`：指定额外的输出信息，通常与 `-o` 或 `-O` 一起使用。
+- `-X`: Specify the type of request (such as GET, POST, PUT, etc.).
+- `-H`: Add a custom HTTP header.
+- `-u`: Provide user authentication information.
+- `-d`: Send POST data.
+- `-o`: Write output to a file.
+- `-O`: Download the remote file's content to a local file with the same name.
+- `-I`: Retrieve only the HTTP header information.
 
-### 示例
+### Examples
 
-1. **获取网页内容**：
+1. **Retrieve web page content**:
    ```bash
    curl http://example.com
    ```
 
-2. **下载文件**：
+2. **Download a file**:
    ```bash
    curl -O http://example.com/file.zip
    ```
 
-3. **发送 POST 请求**：
+3. **Send a POST request**:
    ```bash
    curl -X POST -d "param1=value1&param2=value2" http://example.com/resource
    ```
 
-4. **发送带有 HTTP 头的请求**：
+4. **Send a request with an HTTP header**:
    ```bash
    curl -H "X-My-Header: 123" http://example.com
    ```
-
-5. **使用用户名和密码进行认证**：
-   ```bash
-   curl -u username:password http://example.com
-   ```
-
-6. **跟随重定向**：
-   ```bash
-   curl -L http://example.com/redirect
-   ```
-
-7. **保存输出到文件**：
-   ```bash
-   curl -o filename.html http://example.com
-   ```
-
-8. **查看 HTTP 头部信息**：
-   ```bash
-   curl -I http://example.com
-   ```
-
-9. **上传文件**：
-   ```bash
-   curl -X POST -H "Content-Type: multipart/form-data" -F "file=@localfile.txt" http://example.com/upload
-   ```
-
-10. **静默模式**：
-    ```bash
-    curl -s http://example.com > output.html
-    ```
-
-11. **详细模式**：
-    ```bash
-    curl -v http://example.com
-    ```
-
-`curl` 非常灵活，可以用于各种网络请求和数据传输任务。它在开发者、系统管理员和普通用户中都非常受欢迎，因为它可以很容易地集成到脚本中，并且能够处理复杂的网络通信场景。

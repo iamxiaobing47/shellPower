@@ -1,0 +1,10 @@
+查看用户xiaobing的信息
+
+<hr>
+
+
+```shell
+id xiaobing
+cat /etc/passwd | grep ^xiaobing
+finger xiaobing
+```

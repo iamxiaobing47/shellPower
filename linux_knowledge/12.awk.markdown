@@ -1,23 +1,23 @@
-# 基本语法
+# Basic Syntax
 
 ```
-awk [可选的命令行选项] 'BEGIN{命令 } pattern{ 命令 } END{ 命令 }'  文件名
+awk [options] 'BEGIN{commands } pattern{ commands } END{ commands }' filename
 ```
 
-## 变量和内置函数
+## Variables and Built-in Functions
 
-- `$1`, `$2`, ...：代表输入行中的第1、第2个字段。
-- `NF`：代表当前行的字段总数。
-- `NR`：代表当前处理的是第几行（从1开始计数）。
-- `print`：打印文本
+- `$1`, `$2`, ...: Represent the 1st, 2nd, etc., fields in the input line.
+- `NF`: Represents the total number of fields in the current line.
+- `NR`: Represents the number of the current line being processed (counting from 1)
+- `print`
 
-## 模式匹配
-awk 可以进行模式匹配，例如：
-- `/pattern/`：匹配包含 pattern 的行。
-- `!/pattern/`：匹配不包含 pattern 的行。
+## Pattern Matching
+awk can perform pattern matching, for example:
+- `/pattern/`: Matches lines containing the pattern.
+- `!/pattern/`: Matches lines not containing the pattern.
 
 ```shell
-#打印出 data.txt 文件中从包含 "John" 的行到包含 "Jane" 的行之间的所有行
+# Print all lines from "John" to "Jane" in the file data.txt
 awk '/John/,/Jane/ { print }' data.txt
 ```
 
@@ -30,7 +30,7 @@ awk '{print}' file1.txt file2.txt
 ```
 
 ```shell
-$ echo '192.168.1.1' | awk -F "." '{print $2}'
+echo '192.168.1.1' | awk -F "." '{print $2}'
 168
 ```
 

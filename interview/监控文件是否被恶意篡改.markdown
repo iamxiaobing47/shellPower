@@ -1,0 +1,16 @@
+监控web站点目录（/var/html/www）下所有文件是否被恶意篡改（文件内容被改了）
+
+<hr>
+
+```shell
+#!/bin/bash
+
+DIR="/var/html/www"
+CHECKSUM_FILE="/path/to/checksum_file.txt"
+
+find $DIR -type f -exec md5sum {} \; >$CHECKSUM_FILE.new
+diff $CHECKSUM_FILE $CHECKSUM_FILE.new &>/dev/null
+if [ $? -ne 0 ]; then
+    cat result.txt | diff result2.txt - | grep "^>" | awk '{print $3}'
+fi
+```

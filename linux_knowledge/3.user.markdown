@@ -1,51 +1,54 @@
-# User
+## User Management Commands
 
-为普通用户配置sudo认证
+1. **`useradd username`**:
+   - `-g` specifies the user's group. If not specified, a group with the same name is created and the user is automatically added to it.
+
+2. **`userdel username`**:
+   - `-r`, deletes the user's home directory. If not specified, the home directory is retained when the user is deleted.
+
+3. **`passwd username`**:
+   - Used to change the password for a user.
+
+4. **`id username`**:
+   - Displays the user's UID, GID, and the groups the user belongs to.
+
+5. **`su`**:
+   - Switches to another user.
+
+6. **`usermod`**:
+   - Modifies user information.
+
+## Group Management Commands
+
+1. **`groupadd groupname`**:
+   - Creates a new group.
+
+2. **`groupdel groupname`**:
+   - Deletes a group.
+
+3. **`groupmod`**:
+   - Modifies group information.
+
+## User and Group Files
+
+- `/etc/passwd`: Stores user information such as username, UID, GID, home directory, etc.
+- `/etc/shadow`: Stores encrypted passwords and password expiry information.
+- `/etc/group`: Stores group information such as group name and members of the group.
+- `/etc/gshadow`: Stores encrypted group passwords and group administrator information.
+
+
+- `getent passwd`
+   - Views the system's users and user groups.
+
+- `getent group`
+   - Views the system's user groups.
+
+- `users`
+   - Views the current logged-in users.
+
+Additionally, for configuring sudo authentication for a regular user without a password prompt, you can use the following command:
+
 ```bash
-#root user
-visudo #Open /etc/sudoers
+visudo # Open /etc/sudoers
 {username} ALL=(ALL) NOPASSWD: ALL
 ```
-
-## 用户管理命令
-
-1. **`useradd 用户名`**：添加新用户
-
-   `-g` 指定用户的组，不指定的话，会创建同名组并自动加入
-
-2. **`userdel 用户名`**：删除用户
-
-    `-r`，删除用户的HOME目录，不指定的话，删除目录时，HOME目录保留
-   
-3. **`passwd 用户名`**：更改用户密码
-
-4. **`id 用户名`**：显示用户的 UID、GID 和所属的组。
-
-5. **`su`**：切换用户。
-    - 示例：`su - 用户名`（以指定用户身份登录并加载其环境变量）
-
-5. **`usermod`**：修改用户组
-
-## 组管理命令
-
-1. **`groupadd 组名`**：添加新组。
-
-2. **`groupdel 组名`**：删除组。
-
-3. **`groupmod`**：修改组信息，如 GID。
-
-## 用户和组文件
-
-- `/etc/passwd`：存储用户信息，如用户名、UID、GID、家目录等。
-- `/etc/shadow`：存储加密后的密码和密码过期信息。
-- `/etc/group`：存储组信息，如组名和组内成员。
-- `/etc/gshadow`：存储加密的组密码和组管理员信息。
-
-`getent passwd`
-查看系统的用户和用户组
-
-`getent group`
-查看系统的用户组
-
-`users`
-查看当前用户

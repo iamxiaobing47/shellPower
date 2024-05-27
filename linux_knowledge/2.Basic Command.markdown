@@ -1,8 +1,4 @@
-# Basic Command
-
 ## `which`
-
-Linux commands are essentially binary executable programs, and the `which` command is used to find the path of system executables.
 
 ```bash
 which command_name
@@ -44,15 +40,13 @@ wc [options] [file...]
 
 ## Pipe Symbol `|`
 
-1. Use `grep` to search for text in a file and use `wc` to count the matching lines:
-   ```bash
-   grep "pattern" file.txt | wc -l
-   ```
+```bash
+grep "pattern" file.txt | wc -l
+```
 
-2. Combine multiple commands to perform complex tasks, for example, search for text in a file, count the matching lines, and then filter out certain lines:
-   ```bash
-   grep "pattern" file.txt | wc -l | grep -v "0"
-   ```
+```bash
+grep "pattern" file.txt | wc -l | grep -v "0"
+```
 
 ## `vim`
 

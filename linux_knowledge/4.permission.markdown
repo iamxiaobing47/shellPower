@@ -1,42 +1,40 @@
-# Permission
+## Permission
 
-1. **文件类型**：Linux 中的文件类型包括普通文件、目录、链接文件等。
+1. **File Types**: File types in Linux include regular files, directories, symbolic links, etc.
 
-2. **权限类型**：
-    - **读（r）**：允许读取文件内容或查看目录内的文件列表。
-    - **写（w）**：允许修改文件内容或在目录中创建、删除、重命名文件。
-    - **执行（x）**：允许执行文件或进入目录。
+2. **Permission Types**:
+   - **Read (r)**:
+   - **Write (w)**: Allows modifying the file content or creating, deleting, and renaming files in a directory.
+   - **Execute (x)**: Allows executing the file or entering a directory.
 
-3. **用户类别**：
-    - **所有者（Owner）**：文件的所有者，拥有该文件的权限。
-    - **组（Group）**：文件所属的用户组，组内用户共享文件的权限。
-    - **其他（Others）**：除了文件所有者和组内用户之外的所有用户。
+3. **User Categories**:
+   - **Owner**
+   - **Group**
+   - **Others**: All users other than the file owner and group members.
 
-## 权限表示
+### Permission Representation
 
 -rw-r--r--
 
-10个位置：
-- `-` 文件
-- `d` 目录
-- `l` 软连接
-- 所属用户权限
-- 所属用户组权限
-- 其他用户权限
+10 positions:
+- `-` Regular file
+- `d` Directory
+- `l` Symbolic link
+- Owner permissions
+- Group permissions
+- Others permissions
 
-## 权限管理命令
+### Permission Management Commands
 
-1. **`chmod`**：更改文件或目录的权限。
+1. **`chmod`**: Changes the permissions of files or directories.
 
 ```bash
 chmod -R u=rxw,g=rxw,o=rxw 1.sh
 ```
 
-2. **`chown`**：更改文件或目录的所有者和组。
-    - `sudo chown 新用户名:新组名 文件名`
+2. **`chown`**: Changes the owner and group of files or directories.
+   - `sudo chown newusername:newgroup filename`
 
 ```bash
 chown :root 1.sh
 ```
-
-

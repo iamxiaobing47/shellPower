@@ -1,0 +1,39 @@
+f打印下面这句话中字母数不大于6的单词
+
+I am CSDN teacher welcome to CSDN training class.
+
+<hr>
+
+```shell
+#!/bin/bash
+
+str="I am CSDN teacher welcome to CSDN training class."
+
+function unique {
+    echo $1 | sed 's/ /\n/g' | sort | uniq
+}
+
+function trim {
+    echo $1 | tr -dc 'a-zA-Z0-9'
+}
+
+#-n 参数确保只计算字符数，不包括换行符
+function count {
+    echo -n $1 | wc -c
+}
+
+function main {
+    unique_str=$(unique "$str")
+
+    for word in $unique_str; do
+        word=$(trim $word)
+        characters=$(count $word)
+        if [[ $characters -lt 6 ]]; then
+            echo "$word"
+        fi
+    done
+}
+
+main
+
+```
