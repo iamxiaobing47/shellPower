@@ -2,11 +2,17 @@
 
 <hr>
 
+
+**生成4个字符/数字**
+
 ```shell
-openssl rand -base64 4 | tr -dc 'a-zA-Z0-9' | head -c 4
+head -c 10 /dev/urandom | base64 | tr -d '[:punct:]' | head -c 4
 ```
 
-`openssl rand -base64 4`：此命令生成4个字节的随机数据，并将其编码为Base64格式。Base64编码将**每3个字节的二进制数据转换为4个字符的Base64字符串**。因此，如果你输入4个字节，你将得到5或6个Base64字符
+Base64编码将**每3个字节的二进制数据转换为4个字符的Base64字符串**
+
+
+**生成4个数字**
 
 ```shell
 head -20 /dev/urandom | cksum | cut -c 1-4
