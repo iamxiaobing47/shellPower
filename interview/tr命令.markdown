@@ -41,3 +41,34 @@ tr '[:lower:]' '[:upper:]
 #将删除文件中的所有换行符。
 cat file.txt | tr -d '\n' 
 ```
+
+**删除字符**：
+   删除输入中的所有数字：
+   ```bash
+   echo "abc123xyz" | tr -d '0-9'
+   ```
+
+**字符补集**：
+   保留除了小写字母以外的所有字符：
+   ```bash
+   echo "Hello World! 123" | tr -c '[:lower:]' '\n' | tr '\n' '*'
+   ```
+
+**压缩重复字符**：
+   压缩输入中的连续空格：
+   ```bash
+   echo "this is  a test" | tr -s ' '
+   ```
+
+**删除换行符**：
+   删除输入中的所有换行符：
+   ```bash
+   echo -e "line1\nline2\nline3" | tr -d '\n' | xargs -I {} echo {} 
+   ```
+
+**删除特殊字符**：
+   删除输入中的所有特殊字符，只保留字母和数字：
+   ```bash
+   echo "Hello! How are you?" | tr -d '[:punct:]'
+   ```
+
