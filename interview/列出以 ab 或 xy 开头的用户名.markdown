@@ -3,7 +3,7 @@
 <hr>
 
 ```shell
- -E '^ab\|^xy' /etc/passwd | cut -d: -f1
+grep -E '^ab\|^xy' /etc/passwd | cut -d : -f 1
 ```
 
 cut 命令用于打印 /etc/passwd 文件的每行的第一个字段（用户名
