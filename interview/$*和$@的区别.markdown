@@ -1,24 +1,42 @@
-$* 和 $@ 有什么区别？
+\$\* 和 \$@ 有什么区别？
 
-args=("$@") 和 args=("$@")的区别？ 
+---
 
-<hr>
-
-- `$*` ，所有的命令行参数被看作是一个单一的字符串, 空格分割
-- `$@` 是一个数组，每个参数都是数组的一个元素
+- `$*` ，所有参数被看作一个单一的字符串, 用空格分割
+- `$@` , 所有参数被看作是一个数组，每个参数都是数组的一个元素
 
 
-`args=("$@")`
-`args=($@)`
+### Problematic code:
 
-使用 "$@" 时，每个参数都被双引号包围。这意味着每个参数都被视为一个独立的元素，即使它包含空格。这种方法可以正确处理包含空格的参数
+```
+cp $@ ~/dir
+```
 
-使用 `$@` 时，参数中的空格将作为分隔符，导致包含空格的参数被拆分为多个数组元素
+### Correct code:
+
+```
+cp "$@" ~/dir
+```
 
 ```shell
-args=("$*")
-echo "${args[0]}"
-
-args=("$@")
-echo "${args[0]}"
+for arg in "$@"; do
+    echo "$arg"
+done
 ```
+
+### Rationale:
+
+- Double quotes around `$@` 
+- `${array[@]}`) 
+
+prevents globbing and word splitting of individual elements, while still expanding to multiple separate arguments.
+
+Let's say you have four arguments: `baz`, `foo bar`, `*` and `/*/*/*/*`
+
+`"$@"` will expand into exactly that: `baz`, `foo bar`, `*` and `/*/*/*/*`
+
+`$@` will expand into multiple other arguments: `baz`, `foo`, `bar`, `file.txt`, `otherfile.jpg`, and (eventually) a list of most files on the system
+
+### Exceptions
+
+When you want globbing of individual elements.
