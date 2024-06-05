@@ -2,6 +2,36 @@
 
 <hr>
 
+read命令读取的值，默认是以空格分隔。可以通过自定义环境变量IFS（Internal Field Separator），修改分隔标志
+
+```shell
+FILE=/etc/passwd
+
+read -p "Enter a username > " user_name
+file_info="$(grep "^$user_name:" $FILE)"
+
+if [ -n "$file_info" ]; then
+  IFS=":" read user pw uid gid name home shell <<< "$file_info"
+  echo "User = '$user'"
+  echo "UID = '$uid'"
+  echo "GID = '$gid'"
+  echo "Full Name = '$name'"
+  echo "Home Dir. = '$home'"
+  echo "Shell = '$shell'"
+else
+  echo "No such user '$user_name'" >&2
+  exit 1
+fi
+```
+
 ```shell
 IFS=':'
+var="1:2:3"
+args=(1:2:3)
+
+echo "$var"     # 输出: 1:2:3
+echo $var       # 输出: 1 2 3
+echo ${args[@]} # 输出: 1 2 3
 ```
+
+双引号对 `$` 仅仅支持变量引用，而不支持模式拓展
