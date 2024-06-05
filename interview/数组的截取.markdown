@@ -1,0 +1,9 @@
+数组的截取
+
+
+<hr>
+
+
+```shell
+${array[@]:position:length} 
+```

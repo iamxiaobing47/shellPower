@@ -1,0 +1,17 @@
+如何删掉换行符？
+
+
+<hr>
+
+```shell
+cat 1.txt | tr -d '\n'
+```
+
+```shell
+tr -d '\n' < input.txt > output.txt
+```
+
+
+```shell
+echo -n
+```

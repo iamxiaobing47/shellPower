@@ -1,0 +1,8 @@
+打印变量的长度
+
+<hr>
+
+```shell
+str='test'
+echo ${#str}
+```

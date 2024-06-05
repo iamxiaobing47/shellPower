@@ -1,0 +1,14 @@
+讲解重定向
+
+
+<hr>
+
+改变输入流
+改变输出流
+```shell
+wc -l < 1.txt > count.txt
+command > file 2>&1
+command > /dev/null 2>&1
+```
+
+

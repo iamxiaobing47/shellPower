@@ -1,0 +1,12 @@
+数组的复制
+
+
+<hr>
+
+
+```shell
+foo=(a b c)
+foo2=(d e f)
+foo=(${foo[@]} ${foo2[@]})
+echo ${foo[@]}
+```

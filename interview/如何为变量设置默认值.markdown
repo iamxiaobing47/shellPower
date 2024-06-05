@@ -1,0 +1,11 @@
+如何为变量设置默认值?
+
+<hr>
+
+
+```shell
+echo ${variable:-$word}
+echo ${variable:+$word}
+echo ${variable:?$message}
+echo ${variable:=$word}
+```
